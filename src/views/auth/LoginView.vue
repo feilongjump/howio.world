@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Logo from '@/assets/logo.png'
-import { User, Lock } from '@element-plus/icons-vue'
 
 const params = reactive({
   username: '',
@@ -27,14 +26,14 @@ const onSubmit = () => {
         <el-form-item label="Username">
           <el-input v-model="params.username" placeholder="Please input username or email">
             <template #prefix>
-              <el-icon><User /></el-icon>
+              <i-ep-user />
             </template>
           </el-input>
         </el-form-item>
         <el-form-item label="Password">
           <el-input v-model="params.password" placeholder="Please input password" show-password>
             <template #prefix>
-              <el-icon><Lock /></el-icon>
+              <i-ep-lock />
             </template>
           </el-input>
         </el-form-item>

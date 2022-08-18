@@ -38,9 +38,9 @@ export default defineConfig({
       resolvers: [
         // Auto register icon components
         // 自动注册图标组件
-        // IconsResolver({
-        //   enabledCollections: ['ep']
-        // }),
+        IconsResolver({
+          enabledCollections: ['ep']
+        }),
         // Auto register Element Plus components
         // 自动导入 Element Plus 组件
         ElementPlusResolver()
