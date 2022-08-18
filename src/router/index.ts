@@ -17,6 +17,11 @@ const router = createRouter({
           component: () => import('@/views/auth/LoginView.vue')
         }
       ]
+    },
+    {
+      path: '/backstage',
+      name: 'backstage',
+      component: () => import('@/layout/IndexView.vue')
     }
   ]
 })

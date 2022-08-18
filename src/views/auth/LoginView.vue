@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import Logo from '@/assets/logo.png'
 
+const router = useRouter()
 const params = reactive({
   username: '',
   password: ''
 })
 
 const onSubmit = () => {
-  console.info(params)
+  ElMessage.success('Welcome back 👏')
+  router.push({ name: 'backstage' })
 }
 </script>
 
