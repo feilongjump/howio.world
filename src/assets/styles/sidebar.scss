@@ -1,0 +1,33 @@
+.main-container {
+  .sidebar-container {
+    width: 15rem;
+    border-right: 1px solid #ddd;
+
+    .aside-logo {
+      width: 100%;
+      height: $headerHeight;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 3rem;
+        height: 3rem;
+      }
+
+      span {
+        font-weight: 600;
+        margin-left: 1rem;
+      }
+    }
+
+    .el-scrollbar {
+      height: calc(100vh - $headerHeight - 1px);
+
+      .el-menu {
+        border-right: none;
+      }
+    }
+  }
+}

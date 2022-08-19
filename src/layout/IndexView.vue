@@ -1,10 +1,16 @@
+<script setup lang="ts">
+import SideBar from './components/SideBar.vue'
+</script>
+
 <template>
   <div class="main-container">
     <el-container>
-      <el-aside>Aside</el-aside>
+      <SideBar />
       <el-container>
         <el-header>Header</el-header>
-        <el-main>Main</el-main>
+        <el-main>
+          <RouterView />
+        </el-main>
       </el-container>
     </el-container>
   </div>
