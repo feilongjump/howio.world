@@ -17,9 +17,14 @@ const resolvePath = (routePath: string) => {
 </script>
 
 <template>
-  <el-menu-item v-if="!item.children" :index="resolvePath(item.path)">{{
-    item.title
-  }}</el-menu-item>
+  <el-menu-item v-if="!item.children" :index="resolvePath(item.path)">
+    <el-icon>
+      <i-ep-pie-chart />
+    </el-icon>
+    <template #title>
+      {{ item.title }}
+    </template>
+  </el-menu-item>
 
   <el-sub-menu v-else :index="resolvePath(item.path)">
     <template #title>{{ item.title }}</template>

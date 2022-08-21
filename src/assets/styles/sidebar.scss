@@ -1,7 +1,9 @@
 .main-container {
   .sidebar-container {
-    width: 15rem;
+    width: $sidebarWidth;
     border-right: 1px solid $borderGray;
+    transition: all 0.5s ease-in-out;
+    overflow-x: hidden;
 
     .aside-logo {
       width: 100%;
@@ -25,9 +27,32 @@
     .el-scrollbar {
       height: calc(100vh - $headerHeight - 1px);
 
-      .el-menu {
+      .el-menu-vertical {
+        width: 100%;
         border-right: none;
       }
     }
+  }
+
+ .sidebar-container.draw-back-sidebar {
+  width: 4rem;
+
+  .aside-logo{
+
+    img {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    span {
+      display: none;
+    }
+  }
+ }
+}
+
+.main-container {
+  .sidebar-container.hidden-sidebar {
+    width: 0;
   }
 }

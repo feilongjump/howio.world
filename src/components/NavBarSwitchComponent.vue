@@ -1,16 +1,37 @@
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
+import type { CollapseClassType } from '@/types/SideBar'
 
-type StateClass = 'open' | 'close'
-const stateClass = ref<StateClass>('open')
+const stateClass = ref<CollapseClassType>('open-sidebar')
 
 const appStore = useAppStore()
 
 const switchState = () => {
-  stateClass.value = stateClass.value === 'open' ? 'close' : 'open'
+  // 每级进行递减，当值为隐藏，再次点击将其展开所有
+  let switchValue: CollapseClassType
 
-  appStore.switchSidebar()
+  switch (appStore.sidebar) {
+    case 'open-sidebar':
+      switchValue = 'draw-back-sidebar'
+      break
+    case 'draw-back-sidebar':
+      switchValue = 'hidden-sidebar'
+      break
+    case 'hidden-sidebar':
+      switchValue = 'open-sidebar'
+      break
+  }
+
+  stateClass.value = switchValue
+  appStore.switchSidebar(switchValue)
 }
+
+watch(
+  () => appStore.sidebar,
+  (newVal) => {
+    stateClass.value = newVal
+  }
+)
 </script>
 
 <template>
@@ -30,24 +51,34 @@ const switchState = () => {
   padding: 0 0.35rem;
   border: 1px solid #ddd;
   border-radius: 1rem;
-  transition: all 0.5s linear;
+  transition: all 0.3s linear;
 
   .circular {
     width: 0.75rem;
     height: 0.75rem;
     border: 2px solid #555;
     border-radius: 50%;
-    transition: all 0.5s linear;
+    transition: all 0.3s linear;
   }
 }
 
-.open {
+.open-sidebar {
   .circular {
     transform: translateX(190%);
   }
 }
 
-.close {
+.draw-back-sidebar {
+  background-color: #eee;
+
+  .circular {
+    border-color: #aaa;
+    border-color: #888;
+    transform: translateX(90%);
+  }
+}
+
+.hidden-sidebar {
   background-color: #ddd;
 
   .circular {

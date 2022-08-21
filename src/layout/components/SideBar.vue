@@ -2,6 +2,7 @@
 import Logo from '@/assets/logo.png'
 import { useAppStore } from '@/stores/app'
 import SideBarItem from './SideBarItem.vue'
+import type { CollapseClassType } from '@/types/SideBar'
 
 const appStore = useAppStore()
 const appName = import.meta.env.VITE_APP_NAME
@@ -27,13 +28,17 @@ const menus = [
   }
 ]
 
+const collapseClass = ref<CollapseClassType>('open-sidebar')
 const isCollapse = computed(() => {
-  return !appStore.sidebarState
+  const sidebarState = appStore.sidebarState
+  collapseClass.value = sidebarState
+
+  return sidebarState === 'draw-back-sidebar' ? true : false
 })
 </script>
 
 <template>
-  <el-aside class="sidebar-container">
+  <el-aside class="sidebar-container" :class="collapseClass">
     <!-- header -->
     <div class="aside-logo">
       <img :src="Logo" alt="" />
@@ -42,9 +47,14 @@ const isCollapse = computed(() => {
 
     <!-- menu -->
     <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu router :collapse="isCollapse">
-        <SideBarItem v-for="menu in menus" :key="menu.path" :item="menu" :basePath="menu.path" />
+      <el-menu class="el-menu-vertical" router :collapse="isCollapse">
+        <SideBarItem v-for="menu in menus" :key="menu.path" :item="menu" />
       </el-menu>
     </el-scrollbar>
   </el-aside>
 </template>
+
+<style lang="scss">
+@import '@/assets/styles/variables.scss';
+@import '@/assets/styles/sidebar.scss';
+</style>

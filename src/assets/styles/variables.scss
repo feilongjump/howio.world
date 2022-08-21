@@ -1,13 +1,15 @@
 $grayColor: #909399;
 $linkColor: #409eff;
-
-$headerHeight: 3.75rem;
 $borderGray: #DDD;
+
+$sidebarWidth: 15rem;
+$headerHeight: 3.75rem;
 
 :export {
   grayColor: $grayColor;
   linkColor: $linkColor;
-
-  headerHeight: $headerHeight;
   borderGray: $borderGray;
+
+  sidebarWidth: $sidebarWidth;
+  headerHeight: $headerHeight;
 }

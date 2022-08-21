@@ -1,17 +1,18 @@
 import { defineStore } from 'pinia'
+import type { CollapseClassType } from '@/types/SideBar'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
-    sidebar: true
+    sidebar: <CollapseClassType>'open-sidebar'
   }),
   getters: {
-    sidebarState(): boolean {
+    sidebarState(): CollapseClassType {
       return this.sidebar
     }
   },
   actions: {
-    switchSidebar() {
-      this.sidebar = !this.sidebar
+    switchSidebar(value: CollapseClassType) {
+      this.sidebar = value
     }
   }
 })
