@@ -2,10 +2,12 @@ $grayColor: #909399;
 $linkColor: #409eff;
 
 $headerHeight: 3.75rem;
+$borderGray: #DDD;
 
 :export {
   grayColor: $grayColor;
   linkColor: $linkColor;
 
   headerHeight: $headerHeight;
+  borderGray: $borderGray;
 }

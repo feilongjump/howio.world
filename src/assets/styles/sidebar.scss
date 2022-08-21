@@ -1,12 +1,12 @@
 .main-container {
   .sidebar-container {
     width: 15rem;
-    border-right: 1px solid #ddd;
+    border-right: 1px solid $borderGray;
 
     .aside-logo {
       width: 100%;
       height: $headerHeight;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid $borderGray;
       display: flex;
       justify-content: center;
       align-items: center;

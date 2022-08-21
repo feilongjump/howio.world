@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import Logo from '@/assets/logo.png'
+import { useAppStore } from '@/stores/app'
 import SideBarItem from './SideBarItem.vue'
 
+const appStore = useAppStore()
 const appName = import.meta.env.VITE_APP_NAME
 
 const menus = [
@@ -24,6 +26,10 @@ const menus = [
     ]
   }
 ]
+
+const isCollapse = computed(() => {
+  return !appStore.sidebarState
+})
 </script>
 
 <template>
@@ -36,7 +42,7 @@ const menus = [
 
     <!-- menu -->
     <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu router>
+      <el-menu router :collapse="isCollapse">
         <SideBarItem v-for="menu in menus" :key="menu.path" :item="menu" :basePath="menu.path" />
       </el-menu>
     </el-scrollbar>
