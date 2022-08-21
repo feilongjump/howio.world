@@ -21,7 +21,26 @@ const router = createRouter({
     {
       path: '/backstage',
       name: 'backstage',
-      component: () => import('@/layout/IndexView.vue')
+      redirect: { name: 'dashboard' },
+      component: () => import('@/layout/IndexView.vue'),
+      children: [
+        {
+          path: 'dashboard',
+          name: 'dashboard',
+          component: () => import('@/views/dashboard/IndexView.vue'),
+          meta: {
+            title: 'Dashboard'
+          }
+        },
+        {
+          path: 'users',
+          name: 'user',
+          component: () => import('@/views/user/IndexView.vue'),
+          meta: {
+            title: 'User'
+          }
+        }
+      ]
     }
   ]
 })

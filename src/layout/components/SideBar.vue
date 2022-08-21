@@ -9,22 +9,12 @@ const appName = import.meta.env.VITE_APP_NAME
 
 const menus = [
   {
-    path: '/auth/login?a',
-    title: '登录'
+    path: '/backstage/dashboard',
+    title: 'Dashboard'
   },
   {
-    path: '/auth/login?b',
-    title: '登录1'
-  },
-  {
-    path: '/auth/login?c',
-    title: '登录2',
-    children: [
-      {
-        path: '/auth/login?c-c',
-        title: '登录 2 - 2'
-      }
-    ]
+    path: '/backstage/users',
+    title: 'User'
   }
 ]
 
