@@ -32,13 +32,9 @@ declare module '@vue/runtime-core' {
     IEpSearch: typeof import('~icons/ep/search')['default']
     IEpSwitchButton: typeof import('~icons/ep/switch-button')['default']
     IEpUser: typeof import('~icons/ep/user')['default']
-    NavBarSwitch: typeof import('./src/components/NavBarSwitch.vue')['default']
     NavBarSwitchComponent: typeof import('./src/components/NavBarSwitchComponent.vue')['default']
-    NavBarSwitchModule: typeof import('./src/components/NavBarSwitchModule.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Search: typeof import('./src/components/Search.vue')['default']
     SearchComponent: typeof import('./src/components/SearchComponent.vue')['default']
-    SearchModule: typeof import('./src/components/SearchModule.vue')['default']
   }
 }
