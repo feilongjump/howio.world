@@ -25,3 +25,8 @@ a {
   text-decoration: none;
   color: $linkColor;
 }
+.circular-bead-input {
+  .el-input__wrapper {
+    border-radius: 1rem;
+  }
+}
