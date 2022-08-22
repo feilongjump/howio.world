@@ -2,6 +2,8 @@
 import Logo from '@/assets/logo.png'
 import { useAppStore } from '@/stores/app'
 import SideBarItem from './SideBarItem.vue'
+import SideBarShade from './SideBarShade.vue'
+import { switchSidebar } from '@/utils/sidebar'
 import type { CollapseClassType } from '@/types/SideBar'
 
 const appStore = useAppStore()
@@ -30,8 +32,8 @@ const isCollapse = computed(() => {
 <template>
   <el-aside class="sidebar-container" :class="collapseClass">
     <!-- header -->
-    <div class="aside-logo">
-      <img :src="Logo" alt="" />
+    <div class="aside-logo" @click="switchSidebar">
+      <img :src="Logo" />
       <span>{{ appName }}</span>
     </div>
 
@@ -42,6 +44,7 @@ const isCollapse = computed(() => {
       </el-menu>
     </el-scrollbar>
   </el-aside>
+  <SideBarShade />
 </template>
 
 <style lang="scss">

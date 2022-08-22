@@ -8,9 +8,12 @@ const mobile = ref<MobileType>('')
 const appStore = useAppStore()
 
 const resizeHandle = () => {
-  mobile.value = document.body.scrollWidth < 768 || document.body.clientWidth < 768 ? 'mobile' : ''
-
-  appStore.switchSidebar('hidden-sidebar')
+  if (document.body.scrollWidth < 768 || document.body.clientWidth < 768) {
+    mobile.value = 'mobile'
+    appStore.switchSidebar('hidden-sidebar')
+  } else {
+    mobile.value = ''
+  }
 }
 
 onBeforeMount(() => {

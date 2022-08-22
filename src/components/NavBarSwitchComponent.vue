@@ -1,30 +1,11 @@
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
+import { switchSidebar } from '@/utils/sidebar'
 import type { CollapseClassType } from '@/types/SideBar'
 
-const stateClass = ref<CollapseClassType>('open-sidebar')
+const stateClass = ref<CollapseClassType>(switchSidebar())
 
 const appStore = useAppStore()
-
-const switchState = () => {
-  // 每级进行递减，当值为隐藏，再次点击将其展开所有
-  let switchValue: CollapseClassType
-
-  switch (appStore.sidebar) {
-    case 'open-sidebar':
-      switchValue = 'draw-back-sidebar'
-      break
-    case 'draw-back-sidebar':
-      switchValue = 'hidden-sidebar'
-      break
-    case 'hidden-sidebar':
-      switchValue = 'open-sidebar'
-      break
-  }
-
-  stateClass.value = switchValue
-  appStore.switchSidebar(switchValue)
-}
 
 watch(
   () => appStore.sidebar,
@@ -38,7 +19,7 @@ watch(
   <div
     class="switch-container flex items-center cursor-pointer"
     :class="stateClass"
-    @click="switchState"
+    @click="switchSidebar"
   >
     <div class="circular"></div>
   </div>

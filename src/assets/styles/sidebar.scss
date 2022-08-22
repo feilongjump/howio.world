@@ -1,6 +1,8 @@
 .main-container {
   .sidebar-container {
-    width: $sidebarWidth;
+    background-color: #fff;
+    z-index: 10;
+    width: $sidebarOpenWidth;
     border-right: 1px solid $borderGray;
     transition: all 0.5s ease-in-out;
     overflow-x: hidden;
@@ -16,11 +18,13 @@
       img {
         width: 3rem;
         height: 3rem;
+        transition: all 0.5s ease-in-out;
       }
 
       span {
         font-weight: 600;
         margin-left: 1rem;
+        white-space: nowrap;
       }
     }
 
@@ -32,27 +36,75 @@
         border-right: none;
       }
     }
-  }
 
- .sidebar-container.draw-back-sidebar {
-  width: 4rem;
+    &.draw-back-sidebar {
+      width: $sidebarDrawWidth;
 
-  .aside-logo{
+      .aside-logo {
 
-    img {
-      width: 2.5rem;
-      height: 2.5rem;
+        img {
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+
+        span {
+          overflow: hidden;
+          animation-name: logoSpanZoom;
+          animation-duration: 0.5s;
+          animation-timing-function: ease-in-out;
+          animation-fill-mode: forwards;
+        }
+      }
     }
 
-    span {
-      display: none;
+    &.hidden-sidebar {
+      width: $sidebarHiddenWidth;
     }
   }
- }
 }
 
-.main-container {
-  .sidebar-container.hidden-sidebar {
+@keyframes logoSpanZoom {
+  0% {
+    width: 4.625rem;
+  }
+
+  50% {
+    width: 2.3125rem;
+    margin-left: 1rem;
+  }
+
+  100% {
     width: 0;
+    margin-left: 0;
   }
 }
+
+.main-container.mobile {
+  .sidebar-container {
+    position: fixed;
+  }
+
+  .sidebar-shade {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: #666;
+    opacity: 0.6;
+    z-index: 10;
+    transition: all 0.5s ease-in-out;
+
+    &.open-sidebar {
+      margin-left: $sidebarOpenWidth;
+    }
+
+    &.draw-back-sidebar {
+      margin-left: $sidebarDrawWidth;
+    }
+
+    &.hidden-sidebar {
+      width: 0;
+      margin-left: $sidebarHiddenWidth;
+    }
+  }
+}
+

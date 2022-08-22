@@ -60,6 +60,7 @@ const signOut = () => {
     height: 100%;
 
     .nav-search-container {
+      max-width: 12rem;
       margin-right: 2rem;
     }
 
@@ -84,6 +85,15 @@ const signOut = () => {
       width: 2.75rem;
       height: 2.75rem;
       border-radius: 50%;
+    }
+  }
+}
+
+.mobile {
+  .el-header > .el-row {
+    .nav-search-container {
+      width: 60%;
+      margin-right: 1rem;
     }
   }
 }
