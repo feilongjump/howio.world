@@ -40,7 +40,7 @@ const isCollapse = computed(() => {
     <!-- menu -->
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu class="el-menu-vertical" router :collapse="isCollapse">
-        <SideBarItem v-for="menu in menus" :key="menu.path" :item="menu" />
+        <SideBarItem v-for="menu in menus" :key="menu.path" :item="menu" :basePath="menu.path" />
       </el-menu>
     </el-scrollbar>
   </el-aside>

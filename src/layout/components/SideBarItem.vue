@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { startsWith } from 'lodash'
 const props = defineProps({
   item: {
     type: Object,
@@ -11,8 +12,12 @@ const props = defineProps({
 })
 
 const resolvePath = (routePath: string) => {
-  // todo: 这里会有问题，当子路由需要直接跳转到 /xxx 时，会拼接上 /parent/xxx
-  return props.basePath + routePath
+  // eg: /parent
+  if (routePath === '') return props.basePath
+  // eg: /xxx
+  if (startsWith(routePath, '/')) return routePath
+  // eg: /parent/xxx
+  return `${props.basePath}/${routePath}`
 }
 </script>
 
@@ -29,6 +34,11 @@ const resolvePath = (routePath: string) => {
   <el-sub-menu v-else :index="resolvePath(item.path)">
     <template #title>{{ item.title }}</template>
 
-    <SideBarItem v-for="children in item.children" :key="children.path" :item="children" />
+    <SideBarItem
+      v-for="children in item.children"
+      :key="children.path"
+      :item="children"
+      :basePath="resolvePath(children.path)"
+    />
   </el-sub-menu>
 </template>
