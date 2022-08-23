@@ -4,6 +4,7 @@ specifiers:
   '@element-plus/icons-vue': ^2.0.9
   '@iconify-json/ep': ^1.1.7
   '@rushstack/eslint-patch': ^1.1.4
+  '@types/lodash': ^4.14.184
   '@types/node': ^16.11.47
   '@types/nprogress': ^0.2.0
   '@vitejs/plugin-vue': ^3.0.1
@@ -18,6 +19,7 @@ specifiers:
   husky: ^8.0.0
   lint-staged: ^13.0.3
   localforage: ^1.10.0
+  lodash: ^4.17.21
   npm-run-all: ^4.1.5
   nprogress: ^0.2.0
   pinia: ^2.0.17
@@ -35,6 +37,7 @@ specifiers:
 dependencies:
   element-plus: 2.2.13_vue@3.2.37
   localforage: registry.npmmirror.com/localforage/1.10.0
+  lodash: registry.npmmirror.com/lodash/4.17.21
   nprogress: 0.2.0
   pinia: 2.0.18_j6bzmzd4ujpabbp5objtwxyjp4
   vue: 3.2.37
@@ -44,6 +47,7 @@ devDependencies:
   '@element-plus/icons-vue': 2.0.9_vue@3.2.37
   '@iconify-json/ep': registry.npmmirror.com/@iconify-json/ep/1.1.7
   '@rushstack/eslint-patch': 1.1.4
+  '@types/lodash': registry.npmmirror.com/@types/lodash/4.14.184
   '@types/node': 16.11.49
   '@types/nprogress': 0.2.0
   '@vitejs/plugin-vue': 3.0.3_vite@3.0.8+vue@3.2.37
@@ -213,11 +217,7 @@ packages:
   /@types/lodash-es/4.17.6:
     resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
     dependencies:
-      '@types/lodash': 4.14.183
-    dev: false
-
-  /@types/lodash/4.14.183:
-    resolution: {integrity: sha512-UXavyuxzXKMqJPEpFPri6Ku5F9af6ZJXUneHhvQJxavrEjuHkFp2YnDWHcxJiG7hk8ZkWqjcyNeW1s/smZv5cw==}
+      '@types/lodash': registry.npmmirror.com/@types/lodash/4.14.184
     dev: false
 
   /@types/node/16.11.49:
@@ -887,13 +887,13 @@ packages:
       '@element-plus/icons-vue': 2.0.9_vue@3.2.37
       '@floating-ui/dom': 0.5.4
       '@popperjs/core': registry.npmmirror.com/@sxzz/popperjs-es/2.11.7
-      '@types/lodash': 4.14.183
+      '@types/lodash': registry.npmmirror.com/@types/lodash/4.14.184
       '@types/lodash-es': 4.17.6
       '@vueuse/core': 8.9.4_vue@3.2.37
       async-validator: 4.2.5
       dayjs: 1.11.5
       escape-html: 1.0.3
-      lodash: 4.17.21
+      lodash: registry.npmmirror.com/lodash/4.17.21
       lodash-es: 4.17.21
       lodash-unified: 1.0.2_3ib2ivapxullxkx3xftsimdk7u
       memoize-one: 6.0.0
@@ -1720,16 +1720,13 @@ packages:
       lodash-es: '*'
     dependencies:
       '@types/lodash-es': 4.17.6
-      lodash: 4.17.21
+      lodash: registry.npmmirror.com/lodash/4.17.21
       lodash-es: 4.17.21
     dev: false
 
   /lodash.merge/4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: true
-
-  /lodash/4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
   /log-update/4.0.0:
     resolution: {integrity: sha512-9fkkDevMefjg0mmzWFBW8YkFP91OrizzkW3diF7CpG+S2EYdy4+TVfGwz1zeF8x7hCx1ovSPTOE9Ngib74qqUg==}
@@ -2744,7 +2741,7 @@ packages:
       eslint-visitor-keys: 3.3.0
       espree: 9.3.3
       esquery: 1.4.0
-      lodash: 4.17.21
+      lodash: registry.npmmirror.com/lodash/4.17.21
       semver: 7.3.7
     transitivePeerDependencies:
       - supports-color
@@ -2889,6 +2886,11 @@ packages:
     name: '@sxzz/popperjs-es'
     version: 2.11.7
     dev: false
+
+  registry.npmmirror.com/@types/lodash/4.14.184:
+    resolution: {integrity: sha512-RoZphVtHbxPZizt4IcILciSWiC6dcn+eZ8oX9IWEYfDMcocdd42f7NPI6fQj+6zI8y4E0L7gu2pcZKLGTRaV9Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/lodash/-/lodash-4.14.184.tgz}
+    name: '@types/lodash'
+    version: 4.14.184
 
   registry.npmmirror.com/esbuild-android-64/0.14.54:
     resolution: {integrity: sha512-Tz2++Aqqz0rJ7kYBfz+iqyE3QMycD4vk7LBRyWaAVFgFtQ/O8EJOnVmTOiDWYZ/uYzB4kvP+bqejYdVKzE5lAQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/esbuild-android-64/-/esbuild-android-64-0.14.54.tgz}
@@ -3141,3 +3143,8 @@ packages:
     dependencies:
       lie: registry.npmmirror.com/lie/3.1.1
     dev: false
+
+  registry.npmmirror.com/lodash/4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/lodash/-/lodash-4.17.21.tgz}
+    name: lodash
+    version: 4.17.21
