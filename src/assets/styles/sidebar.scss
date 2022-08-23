@@ -59,6 +59,19 @@
 
     &.hidden-sidebar {
       width: $sidebarHiddenWidth;
+
+      .aside-logo {
+
+          img {
+            width: 0rem;
+            height: 0rem;
+            transition: all 1.5s ease-in-out;
+          }
+
+          span {
+            display: none;
+          }
+        }
     }
   }
 }
@@ -76,6 +89,7 @@
   100% {
     width: 0;
     margin-left: 0;
+    display: none;
   }
 }
 

@@ -22,10 +22,10 @@ const menus = [
 
 const collapseClass = ref<CollapseClassType>('open-sidebar')
 const isCollapse = computed(() => {
-  const sidebarState = appStore.sidebarState
+  const sidebarState = appStore.sidebar
   collapseClass.value = sidebarState
 
-  return sidebarState === 'draw-back-sidebar' ? true : false
+  return ['open-sidebar', 'hidden-sidebar'].includes(sidebarState) ? false : true
 })
 </script>
 

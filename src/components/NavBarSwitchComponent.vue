@@ -3,7 +3,7 @@ import { useAppStore } from '@/stores/app'
 import { switchSidebar } from '@/utils/sidebar'
 import type { CollapseClassType } from '@/types/SideBar'
 
-const stateClass = ref<CollapseClassType>(switchSidebar())
+const stateClass = ref<CollapseClassType>('open-sidebar')
 
 const appStore = useAppStore()
 
