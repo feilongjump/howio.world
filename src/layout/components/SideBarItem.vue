@@ -23,22 +23,24 @@ const resolvePath = (routePath: string) => {
 
 <template>
   <el-menu-item v-if="!item.children" :index="resolvePath(item.path)">
-    <el-icon>
-      <i-ep-pie-chart />
-    </el-icon>
+    <template v-if="item.meta.icon">
+      <el-icon>
+        <component :is="item.meta.icon"></component>
+      </el-icon>
+    </template>
     <template #title>
-      {{ item.title }}
+      {{ item.meta.title }}
     </template>
   </el-menu-item>
 
   <el-sub-menu v-else :index="resolvePath(item.path)">
-    <template #title>{{ item.title }}</template>
+    <template #title>{{ item.meta.title }}</template>
 
     <SideBarItem
-      v-for="children in item.children"
-      :key="children.path"
-      :item="children"
-      :basePath="resolvePath(children.path)"
+      v-for="child in item.children"
+      :key="child.path"
+      :item="child"
+      :basePath="resolvePath(child.path)"
     />
   </el-sub-menu>
 </template>

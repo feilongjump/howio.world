@@ -30,7 +30,6 @@ declare module '@vue/runtime-core' {
     IEpChatLineRound: typeof import('~icons/ep/chat-line-round')['default']
     IEpLocation: typeof import('~icons/ep/location')['default']
     IEpLock: typeof import('~icons/ep/lock')['default']
-    IEpPieChart: typeof import('~icons/ep/pie-chart')['default']
     IEpSearch: typeof import('~icons/ep/search')['default']
     IEpSwitchButton: typeof import('~icons/ep/switch-button')['default']
     IEpUser: typeof import('~icons/ep/user')['default']

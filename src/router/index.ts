@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import NProgress from '@/utils/progress'
+import Layout from '@/layout/IndexView.vue'
+import backstageRoute from './backstage'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,25 +24,8 @@ const router = createRouter({
       path: '/backstage',
       name: 'backstage',
       redirect: { name: 'dashboard' },
-      component: () => import('@/layout/IndexView.vue'),
-      children: [
-        {
-          path: 'dashboard',
-          name: 'dashboard',
-          component: () => import('@/views/dashboard/IndexView.vue'),
-          meta: {
-            title: 'Dashboard'
-          }
-        },
-        {
-          path: 'users',
-          name: 'user',
-          component: () => import('@/views/user/IndexView.vue'),
-          meta: {
-            title: 'User'
-          }
-        }
-      ]
+      component: Layout,
+      children: backstageRoute
     }
   ]
 })
