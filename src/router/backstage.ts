@@ -1,5 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import IEpPieChart from '~icons/ep/pie-chart'
+import IEpUser from '~icons/ep/user'
 
 const backstageRoute: Array<RouteRecordRaw> = [
   {
@@ -17,7 +18,7 @@ const backstageRoute: Array<RouteRecordRaw> = [
     component: () => import('@/views/user/IndexView.vue'),
     meta: {
       title: 'User',
-      icon: IEpPieChart
+      icon: IEpUser
     }
   }
 ]
