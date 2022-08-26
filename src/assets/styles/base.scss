@@ -37,3 +37,19 @@ a {
     border-radius: 1rem;
   }
 }
+
+.card {
+  border: 1px solid rgba(231, 234, 243, 0.7);
+  border-radius: 1rem;
+  box-shadow: 0 0.375rem 0.75rem rgb(140 152 164 / 8%);
+
+  .card-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(231, 234, 243, 0.7);
+  }
+
+  .card-footer {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid rgba(231, 234, 243, 0.7);
+  }
+}
