@@ -26,9 +26,11 @@ onMounted(() => {
       <SideBar />
       <el-container direction="vertical">
         <NavBar />
-        <el-main>
-          <RouterView />
-        </el-main>
+        <el-scrollbar wrap-class="scrollbar-wrapper">
+          <el-main>
+            <RouterView />
+          </el-main>
+        </el-scrollbar>
       </el-container>
     </el-container>
   </div>
