@@ -34,13 +34,20 @@ const resolvePath = (routePath: string) => {
   </el-menu-item>
 
   <el-sub-menu v-else :index="resolvePath(item.path)">
-    <template #title>{{ item.meta.title }}</template>
+    <template #title>
+      <template v-if="item.meta.icon">
+        <el-icon>
+          <component :is="item.meta.icon"></component>
+        </el-icon>
+      </template>
+      <span>{{ item.meta.title }}</span>
+    </template>
 
     <SideBarItem
       v-for="child in item.children"
       :key="child.path"
       :item="child"
-      :basePath="resolvePath(child.path)"
+      :basePath="resolvePath(item.path)"
     />
   </el-sub-menu>
 </template>
