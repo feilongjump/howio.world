@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import SideBar from './components/SideBar.vue'
 import NavBar from './components/NavBar.vue'
+import BreadCrumb from './components/BreadCrumb.vue'
 
 type MobileType = '' | 'mobile'
 const mobile = ref<MobileType>('')
@@ -28,6 +29,7 @@ onMounted(() => {
         <NavBar />
         <el-scrollbar wrap-class="scrollbar-wrapper">
           <el-main>
+            <BreadCrumb />
             <RouterView />
           </el-main>
         </el-scrollbar>
