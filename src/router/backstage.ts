@@ -14,12 +14,29 @@ const backstageRoute: Array<RouteRecordRaw> = [
   },
   {
     path: 'users',
-    name: 'user',
-    component: () => import('@/views/user/IndexView.vue'),
-    meta: {
-      title: 'User',
-      icon: IEpUser
-    }
+    redirect: { name: 'user' },
+    children: [
+      {
+        path: '',
+        name: 'user',
+        component: () => import('@/views/user/IndexView.vue'),
+        meta: {
+          title: 'User',
+          icon: IEpUser
+        }
+      },
+      {
+        path: 'create',
+        name: 'user.create',
+        component: () => import('@/views/user/CreateView.vue'),
+        meta: {
+          title: 'User',
+          description: 'Create',
+          hidden: true,
+          activeMenu: '/backstage/users'
+        }
+      }
+    ]
   }
 ]
 
