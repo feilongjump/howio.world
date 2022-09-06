@@ -35,15 +35,22 @@ const handleCurrentChange = (page: number) => {
 </script>
 
 <template>
-  <el-pagination
-    :currentPage="page"
-    :page-size="limit"
-    :page-sizes="pageSizes"
-    :layout="layout"
-    :total="total"
-    @size-change="handleSizeChange"
-    @current-change="handleCurrentChange"
-  />
+  <div class="pagination-container card-footer flex justify-end" v-show="props.total > props.limit">
+    <el-pagination
+      :hide-on-single-page="true"
+      :currentPage="page"
+      :page-size="limit"
+      :page-sizes="pageSizes"
+      :layout="layout"
+      :total="total"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+    />
+  </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.pagination-container {
+  width: 100%;
+}
+</style>

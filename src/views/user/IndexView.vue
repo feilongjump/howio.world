@@ -162,14 +162,12 @@ const list = (params: ListQueryI) => {
         <el-table-column prop="created_at" label="Created_at" min-width="200" />
       </el-table>
     </el-col>
-    <el-col class="card-footer flex justify-end">
-      <PaginationComponent
-        :total="data.length"
-        :page="listQuery.page"
-        :limit="listQuery.limit"
-        @pagination="list"
-      />
-    </el-col>
+    <PaginationComponent
+      :total="data.length"
+      :page="listQuery.page"
+      :limit="listQuery.limit"
+      @pagination="list"
+    />
   </el-row>
 </template>
 
