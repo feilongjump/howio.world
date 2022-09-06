@@ -1,37 +1,32 @@
 <script lang="ts" setup>
-import { last } from 'lodash'
-import type { RouteRecord, RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 
 interface BreadcrumbItemI {
-  name: string | unknown
+  path: string
   title: string | unknown
 }
 
-const { currentRoute } = useRouter()
+const { currentRoute, hasRoute } = useRouter()
 const breadcrumbItem = ref<BreadcrumbItemI[]>([])
-const createBtnShow = ref(false)
-const createBtn = ref<RouteRecordRaw>()
+const createRouteName = ref('')
+const description = ref<string | unknown>('Overview')
 
-const getBreadcrumbItemByRoute = (currentRouteMatched: RouteRecord[]) => {
+const getBreadcrumbItemByRoute = (currentRouteMatched: RouteRecordRaw[]) => {
   breadcrumbItem.value = []
-  createBtnShow.value = false
 
-  currentRouteMatched.forEach((item: RouteRecord) => {
-    if (item.meta.title) {
+  currentRouteMatched.forEach((item: RouteRecordRaw) => {
+    if (item.meta?.title) {
       breadcrumbItem.value.push({
-        name: item.name,
+        path: item.path,
         title: item.meta?.title
       })
     }
   })
 
-  const lastRoute = last(currentRouteMatched)
-  lastRoute?.children.forEach((child: RouteRecordRaw) => {
-    if (child.path === 'create') {
-      createBtnShow.value = true
-      createBtn.value = child
-    }
-  })
+  createRouteName.value = `${String(currentRoute.value.name)}.create`
+  createRouteName.value = hasRoute(createRouteName.value) ? createRouteName.value : ''
+
+  description.value = currentRoute.value.meta.description ?? 'Overview'
 }
 getBreadcrumbItemByRoute(currentRoute.value.matched)
 
@@ -49,23 +44,23 @@ watch(
       <el-breadcrumb>
         <el-breadcrumb-item
           v-for="item in breadcrumbItem"
-          :key="item.name"
-          :to="{ name: item.name }"
+          :key="item.path"
+          :to="{ path: item.path }"
         >
           {{ item.title }}
         </el-breadcrumb-item>
       </el-breadcrumb>
       <div class="desc-container">
-        <span>Overview</span>
+        <span>{{ description }}</span>
       </div>
     </el-col>
     <el-col
       class="create-container flex justify-end items-center"
       :xs="24"
       :sm="12"
-      v-if="createBtnShow"
+      v-if="createRouteName"
     >
-      <router-link :to="{ name: createBtn?.name }">
+      <router-link :to="{ name: createRouteName }">
         <el-button type="primary">Create</el-button>
       </router-link>
     </el-col>

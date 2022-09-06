@@ -19,6 +19,14 @@ const isCollapse = computed(() => {
 
   return ['open-sidebar', 'hidden-sidebar'].includes(sidebarState) ? false : true
 })
+
+const activeMenu = computed(() => {
+  if (route.meta?.activeMenu) {
+    return route.meta?.activeMenu
+  }
+
+  return route.path
+})
 </script>
 
 <template>
@@ -31,7 +39,7 @@ const isCollapse = computed(() => {
 
     <!-- menu -->
     <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu class="el-menu-vertical" router :collapse="isCollapse" :default-active="route.path">
+      <el-menu class="el-menu-vertical" router :collapse="isCollapse" :default-active="activeMenu">
         <SideBarItem
           v-for="route in backstageRoute"
           :key="route.path"
