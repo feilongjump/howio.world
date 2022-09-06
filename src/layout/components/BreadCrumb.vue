@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { last } from 'lodash'
 import type { RouteRecord, RouteRecordRaw } from 'vue-router'
 
 interface BreadcrumbItemI {
@@ -24,7 +25,7 @@ const getBreadcrumbItemByRoute = (currentRouteMatched: RouteRecord[]) => {
     }
   })
 
-  const lastRoute = currentRouteMatched.pop()
+  const lastRoute = last(currentRouteMatched)
   lastRoute?.children.forEach((child: RouteRecordRaw) => {
     if (child.path === 'create') {
       createBtnShow.value = true
