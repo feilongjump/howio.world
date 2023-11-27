@@ -1,0 +1,26 @@
+.auth-container {
+  @apply relative h-screen w-screen flex flex-col justify-center bg-gray-50 p-2 sm:py-12;
+
+  >img {
+    @apply absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2;
+  }
+
+  .grid-box{
+    @apply absolute inset-0 bg-grid bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))];
+  }
+
+  .auth-box{
+    @apply w-full max-w-sm mx-auto px-2 py-16 z-10;
+
+    .tab-btn {
+      @apply w-full rounded-lg py-2.5 text-sm font-medium leading-5
+        ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2;
+    }
+    .tab-btn-selected{
+      @apply bg-white text-blue-700 shadow;
+    }
+    .tab-btn-normal {
+      @apply text-blue-100 hover:bg-white/[0.12] hover:text-white;
+    }
+  }
+}
