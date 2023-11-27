@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 devDependencies:
+  '@headlessui/vue':
+    specifier: ^1.7.16
+    version: 1.7.16(vue@3.3.9)
   '@nuxt/devtools':
     specifier: latest
     version: 1.0.3(nuxt@3.8.2)(vite@4.5.0)
@@ -819,6 +822,15 @@ packages:
     engines: {node: '>=14'}
     dev: true
 
+  /@headlessui/vue@1.7.16(vue@3.3.9):
+    resolution: {integrity: sha512-nKT+nf/q6x198SsyK54mSszaQl/z+QxtASmgMEJtpxSX2Q0OPJX0upS/9daDyiECpeAsvjkoOrm2O/6PyBQ+Qg==, tarball: https://registry.npmmirror.com/@headlessui/vue/-/vue-1.7.16.tgz}
+    engines: {node: '>=10'}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      vue: 3.3.9(typescript@5.3.2)
+    dev: true
+
   /@ioredis/commands@1.2.0:
     resolution: {integrity: sha512-Sx1pU8EM64o2BrqNpEO1CNLtKQwyhuXuqyfH7oGKCk+1a33d2r5saW8zNwm3j6BTExtjrv2BxTgzzkMwts6vGg==, tarball: https://registry.npmmirror.com/@ioredis/commands/-/commands-1.2.0.tgz}
     dev: true
@@ -1389,6 +1401,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: true
     bundledDependencies:
       - napi-wasm
@@ -4371,6 +4384,10 @@ packages:
     resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==, tarball: https://registry.npmmirror.com/nanoid/-/nanoid-4.0.2.tgz}
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
+    dev: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==, tarball: https://registry.npmmirror.com/napi-wasm/-/napi-wasm-1.1.0.tgz}
     dev: true
 
   /negotiator@0.6.3:
