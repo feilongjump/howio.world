@@ -16,11 +16,50 @@
       @apply w-full rounded-lg py-2.5 text-sm font-medium leading-5
         ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2;
     }
-    .tab-btn-selected{
+    .tab-btn.tab-btn-selected{
       @apply bg-white text-blue-700 shadow;
     }
-    .tab-btn-normal {
+    .tab-btn.tab-btn-normal {
       @apply text-blue-100 hover:bg-white/[0.12] hover:text-white;
+    }
+
+    /* OAuth */
+    .oauth-box {
+      @apply w-full h-10 flex gap-x-4 mt-4;
+
+      .type {
+        @apply w-1/2 flex border rounded-xl justify-center items-center py-2 gap-x-2 cursor-pointer
+          hover:bg-sky-200/20;
+      }
+    }
+
+    /* Auth 表单输入框和按钮 */
+    :deep(.auth-input-box) {
+      @apply mb-6;
+
+      label {
+        @apply font-semibold text-gray-800 cursor-pointer;
+      }
+
+      div {
+        @apply mt-1;
+
+        input {
+          @apply w-full py-2 px-4 rounded-xl bg-gray-300/20 border border-gray-300 outline-none
+            focus:border-gray-500/60 focus:bg-white;
+        }
+      }
+    }
+    :deep(.auth-code-input-box) {
+
+      div {
+        input {
+          @apply w-12 py-2 px-4 text-center uppercase;
+        }
+      }
+    }
+    :deep(.auth-btn) {
+      @apply w-full h-10 mt-2 bg-blue-500 text-white rounded-xl shadow-lg;
     }
   }
 }
