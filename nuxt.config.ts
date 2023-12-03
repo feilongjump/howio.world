@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', 'nuxt-lodash'],
   tailwindcss: {
     configPath: '~/tailwind.config.ts',
     cssPath: '~/assets/css/app.css',
