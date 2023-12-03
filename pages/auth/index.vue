@@ -87,3 +87,7 @@ const modules = {
 <style scoped>
 @import url('~/assets/css/auth.css');
 </style>
+
+<style>
+@import url('~/assets/css/spinkit.min.css');
+</style>
