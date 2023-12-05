@@ -4,6 +4,9 @@ import { LazyAuthSignIn, LazyAuthSignUp } from '#components'
 import GitHub from '~/assets/img/github.png'
 import WeChat from '~/assets/img/wechat.png'
 
+const isLoading = ref(false)
+const compRef = ref<InstanceType<typeof LazyAuthSignIn | typeof LazyAuthSignUp>[]>([])
+
 const oauthModules = [
   {
     'title': 'GitHub',
@@ -16,8 +19,20 @@ const oauthModules = [
 ]
 
 const modules = {
-  'Sign In': LazyAuthSignIn,
-  'Sign Up': LazyAuthSignUp,
+  'Sign In': {
+    'comp': LazyAuthSignIn,
+    'btnText': 'Sign In'
+  },
+  'Sign Up': {
+    'comp': LazyAuthSignUp,
+    'btnText': 'Sign In'
+  },
+}
+
+const submit = () => {
+  isLoading.value = true
+
+  compRef.value[0].submit()
 }
 </script>
 
@@ -54,10 +69,10 @@ const modules = {
         </TabList>
         <TabPanels class="mt-2 shadow-xl rounded-lg">
           <TabPanel
-            v-for="item in Object.values(modules)"
+            v-for="item in modules"
             class="rounded-xl bg-white px-6 py-8"
           >
-            <component :is="item">
+            <component :is="item.comp" ref="compRef">
               <template #oauth v-if="oauthModules">
                 <div class="oauth-box">
                   <div class="type" v-for="(module, idx) in oauthModules" :key="idx">
@@ -75,6 +90,16 @@ const modules = {
                     <span class="font-semibold bg-white px-2">Or continue with</span>
                   </div>
                 </div>
+              </template>
+              <template #submit>
+                <!-- loading -->
+                <div class="flex justify-center" v-show="isLoading">
+                  <div class="sk-swing !w-16 !h-16">
+                    <div class="sk-swing-dot !bg-pink-300"></div>
+                    <div class="sk-swing-dot !bg-sky-300"></div>
+                  </div>
+                </div>
+                <button v-show="!isLoading" class="auth-btn" @click="submit">{{ item.btnText }}</button>
               </template>
             </component>
           </TabPanel>

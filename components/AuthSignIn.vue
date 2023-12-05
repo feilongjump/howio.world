@@ -5,6 +5,13 @@ const user = reactive({
   password: '',
 })
 
+const submit = () => {
+  console.info("sign in")
+}
+
+defineExpose({
+  submit
+})
 </script>
 
 <template>
@@ -30,7 +37,7 @@ const user = reactive({
             placeholder="Enter your password" />
         </div>
       </div>
-      <button class="auth-btn">Sign In</button>
+      <slot name="submit"></slot>
     </div>
   </div>
 </template>

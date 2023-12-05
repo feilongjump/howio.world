@@ -7,8 +7,6 @@ const user = reactive({
   password: '',
   verification_code: ''
 })
-const isLoading = ref(false)
-const isShowCodeBox = ref(false)
 const verificationCodeArr = reactive<{[index: number]: string}>({})
 
 /**
@@ -37,7 +35,6 @@ const handleCodeInput = (index: number, codeItem: string) => {
 
   // 发起注册请求
   user.verification_code = Object.values(verificationCodeArr).join('')
-  submit()
 }
 
 /**
@@ -65,8 +62,6 @@ const deleteCode = (index: number) => {
  * 发送邮箱验证码
  */
 const sendEmailVerificationCode = () => {
-  isShowCodeBox.value = true
-
   // 避免失去焦点
   setTimeout(() => {
     (document.getElementById(`code-item-1`) as HTMLElement).focus()
@@ -75,10 +70,14 @@ const sendEmailVerificationCode = () => {
 }
 
 const submit = () => {
-  isLoading.value = true
+  console.info("sign up!")
 
   // sign up actions
 }
+
+defineExpose({
+  submit
+})
 </script>
 
 <template>
@@ -111,8 +110,11 @@ const submit = () => {
         </div>
       </div>
       <!-- verification code -->
-      <div class="auth-input-box auth-code-input-box" v-show="isShowCodeBox">
+      <div class="auth-input-box auth-code-input-box">
         <label for="code-item-1">Verification Code</label>
+        <label class="float-right" @click="sendEmailVerificationCode">
+          <span class="text-blue-500 text-sm font-normal underline underline-offset-2">send code</span>
+        </label>
         <div class="flex justify-between">
           <input
             type="text"
@@ -126,21 +128,7 @@ const submit = () => {
           />
         </div>
       </div>
-      <!-- loading -->
-      <div class="flex justify-center" v-show="isLoading">
-        <div class="sk-swing !w-16 !h-16">
-          <div class="sk-swing-dot !bg-pink-300"></div>
-          <div class="sk-swing-dot !bg-sky-300"></div>
-        </div>
-      </div>
-      <!-- send email verification code -->
-      <button
-        class="auth-btn"
-        @click="sendEmailVerificationCode"
-        v-show="!isLoading"
-      >
-        Send the verification code
-      </button>
+      <slot name="submit"></slot>
     </div>
   </div>
 </template>
