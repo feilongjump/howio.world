@@ -2,6 +2,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss', 'nuxt-lodash'],
+  runtimeConfig: {
+    public: {
+      apiBase: ''
+    }
+  },
   tailwindcss: {
     configPath: '~/tailwind.config.ts',
     cssPath: '~/assets/css/app.css',

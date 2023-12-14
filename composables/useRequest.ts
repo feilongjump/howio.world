@@ -9,7 +9,9 @@ class Request {
   public baseURL: string
 
   constructor(baseURL?: string) {
-    this.baseURL = baseURL || ''
+    const config = useRuntimeConfig()
+
+    this.baseURL = baseURL || config.public.apiBase
   }
 
   /**
