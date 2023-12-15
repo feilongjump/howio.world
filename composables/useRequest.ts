@@ -1,8 +1,9 @@
+import dayjs from 'dayjs'
 import type { FetchContext, FetchResponse } from 'ofetch'
 import type { UseFetchOptions } from 'nuxt/dist/app/composables'
 
 interface SearchParameters {
-  [key: string]: any;
+  [key: string]: any
 }
 
 class Request {
@@ -40,6 +41,20 @@ class Request {
    */
   onRequest ({options}: FetchContext) {
     options.headers = (options.headers as { [key: string]: string }) || ({} as { [key: string]: string })
+
+    const auth = useAuthStore()
+
+    if (auth.token && auth.expired_at) {
+      if (auth.expired_at <=  dayjs().unix()) {
+        // TODO: 此处应该取消当前的请求
+        auth.clear()
+        alert('您的登录信息已过期，请重新登录！')
+        useRouter().push({name: 'auth'})
+        return
+      }
+
+      options.headers.Authorization = 'Bearer ' + auth.token
+    }
   }
 
   /**
@@ -50,10 +65,16 @@ class Request {
       case 401:
         alert('请先登录')
         useRouter().push({name: 'auth'})
-        break;
+        break
+      case 422:
+        const errors = ctx.response._data.error
+        Object.values(errors).reverse().forEach(item => {
+          alert(item)
+        })
+        break
       case 500:
         alert('完了，服务器发生错误了！')
-        break;
+        break
     }
   }
 }

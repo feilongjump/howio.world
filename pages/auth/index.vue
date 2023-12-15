@@ -33,6 +33,11 @@ const submit = () => {
   isLoading.value = true
 
   compRef.value[0].submit()
+
+  // 两秒后可重新提交
+  setTimeout(() => {
+    isLoading.value = false
+  }, 2000);
 }
 </script>
 

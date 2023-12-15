@@ -1,12 +1,23 @@
 <script setup lang="ts">
 
-const user = reactive({
+const router = useRouter()
+
+const params = reactive({
   username: '',
   password: '',
 })
 
-const submit = () => {
-  console.info("sign in")
+const submit = async () => {
+  const { data } = await useRequest.post('auth/sign-in', params)
+
+  const auth = useAuthStore()
+  await auth.setToken(data.value.token)
+
+  const { data: user } = await useRequest.get('me')
+  auth.setUser(user.value)
+
+  alert('登录成功！')
+  router.push('/')
 }
 
 defineExpose({
@@ -26,14 +37,14 @@ defineExpose({
       <div class="auth-input-box">
         <label for="username">Username</label>
         <div>
-          <input id="username" type="text" required v-model="user.username"
+          <input id="username" type="text" required v-model="params.username"
             placeholder="Enter your username or email" />
         </div>
       </div>
       <div class="auth-input-box">
         <label for="password">Password</label>
         <div>
-          <input id="password" type="password" required v-model="user.password"
+          <input id="password" type="password" required v-model="params.password"
             placeholder="Enter your password" />
         </div>
       </div>
