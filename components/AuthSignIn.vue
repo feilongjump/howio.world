@@ -8,16 +8,23 @@ const params = reactive({
 })
 
 const submit = async () => {
-  const { data } = await useRequest.post('auth/sign-in', params)
+  const { data, error } = await useRequest.post('auth/sign-in', params)
+  if (error.value) return false
 
   const auth = useAuthStore()
   await auth.setToken(data.value.token)
 
-  const { data: user } = await useRequest.get('me')
+  const { data: user, error: userError } = await useRequest.get('me')
+  if (userError.value) {
+    auth.clear()
+    alert('登录失败，请重新登录！')
+    return false
+  }
   auth.setUser(user.value)
 
   alert('登录成功！')
   router.push('/')
+  return true
 }
 
 defineExpose({
@@ -45,7 +52,7 @@ defineExpose({
         <label for="password">Password</label>
         <div>
           <input id="password" type="password" required v-model="params.password"
-            placeholder="Enter your password" />
+            placeholder="Enter your password" @keyup.enter="$emit('parentSubmit')" />
         </div>
       </div>
       <slot name="submit"></slot>

@@ -29,15 +29,12 @@ const modules = {
   },
 }
 
-const submit = () => {
+const submit = async () => {
   isLoading.value = true
 
-  compRef.value[0].submit()
+  await compRef.value[0].submit()
 
-  // 两秒后可重新提交
-  setTimeout(() => {
-    isLoading.value = false
-  }, 2000);
+  isLoading.value = false
 }
 </script>
 
@@ -77,7 +74,7 @@ const submit = () => {
             v-for="item in modules"
             class="rounded-xl bg-white px-6 py-8"
           >
-            <component :is="item.comp" ref="compRef">
+            <component :is="item.comp" ref="compRef" @parentSubmit="submit">
               <template #oauth v-if="oauthModules">
                 <div class="oauth-box">
                   <div class="type" v-for="(module, idx) in oauthModules" :key="idx">

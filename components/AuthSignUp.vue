@@ -1,7 +1,10 @@
 <script setup lang="ts">
 
+const emit = defineEmits(['parentSubmit'])
+const router = useRouter()
+
 const codeLength = 6
-const user = reactive({
+const params = reactive({
   name: '',
   email: '',
   password: '',
@@ -34,7 +37,8 @@ const handleCodeInput = (index: number, codeItem: string) => {
   }
 
   // 发起注册请求
-  user.verification_code = Object.values(verificationCodeArr).join('')
+  params.verification_code = Object.values(verificationCodeArr).join('')
+  emit('parentSubmit')
 }
 
 /**
@@ -43,8 +47,8 @@ const handleCodeInput = (index: number, codeItem: string) => {
  * @param {number} index 验证码位置
  */
 const deleteCode = (index: number) => {
-  // 每次删除验证码的操作都将清空 user.verification_code
-  user.verification_code = ''
+  // 每次删除验证码的操作都将清空 params.verification_code
+  params.verification_code = ''
 
   delete verificationCodeArr[index]
   delete verificationCodeArr[index - 1]
@@ -61,18 +65,57 @@ const deleteCode = (index: number) => {
 /**
  * 发送邮箱验证码
  */
-const sendEmailVerificationCode = () => {
-  // 避免失去焦点
-  setTimeout(() => {
-    (document.getElementById(`code-item-1`) as HTMLElement).focus()
-  }, 5)
+const sendEmailVerificationCode = async () => {
+  if (!(params.email && params.name && params.password)) {
+    alert('请先填写注册信息')
+    return
+  }
+
+  clearVerificationCode()
+
   // send email verification code
+  const { error } = await useRequest.post(`/user/email/verification-code`, {
+    'email': params.email
+  })
+  if (error.value) {
+    return
+  }
+
+  (document.getElementById('code-item-1') as HTMLElement).focus()
+  alert('邮件发送成功')
 }
 
-const submit = () => {
-  console.info("sign up!")
+/**
+ * 清空验证码
+ */
+const clearVerificationCode = () => {
+  for (let i = 6; i > 0; i--) {
+    handleCodeInput(i, '')
+    deleteCode(i)
+  }
+}
 
-  // sign up actions
+const submit = async () => {
+  const { data, error } = await useRequest.post('auth/sign-up', params)
+  if (error.value) {
+    clearVerificationCode()
+    return false
+  }
+
+  const auth = useAuthStore()
+  await auth.setToken(data.value.token)
+
+  const { data: user, error: userError } = await useRequest.get('me')
+  if (userError.value) {
+    auth.clear()
+    alert('注册失败，请重新注册！')
+    return false
+  }
+  auth.setUser(user.value)
+
+  alert('注册成功！')
+  router.push('/')
+  return true
 }
 
 defineExpose({
@@ -91,21 +134,21 @@ defineExpose({
       <div class="auth-input-box">
         <label for="name">Name</label>
         <div>
-          <input id="name" type="text" required v-model="user.name"
+          <input id="name" type="text" required v-model="params.name"
             placeholder="Enter your or name" />
         </div>
       </div>
       <div class="auth-input-box">
         <label for="email">Email</label>
         <div>
-          <input id="email" type="text" required v-model="user.email"
+          <input id="email" type="text" required v-model="params.email"
             placeholder="Enter your or email" />
         </div>
       </div>
       <div class="auth-input-box">
         <label for="password">Password</label>
         <div>
-          <input id="password" type="password" required v-model="user.password"
+          <input id="password" type="password" required v-model="params.password"
             placeholder="Enter your password" />
         </div>
       </div>
@@ -123,6 +166,7 @@ defineExpose({
             v-for="index in codeLength"
             :id="`code-item-${index}`"
             :disabled="index !== 1"
+            v-model="verificationCodeArr[index]"
             @keyup.delete="deleteCode(index)"
             @input="handleCodeInput(index, ($event.target as HTMLInputElement).value)"
           />
