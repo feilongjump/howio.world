@@ -80,10 +80,18 @@ class Request {
 }
 
 export const useRequest = {
-  get: (url: string, query?: SearchParameters) => {
-    return new Request().initiate(url, {method: 'GET', query})
+  get: <T = any>(url: string, query?: SearchParameters, options?: UseFetchOptions<T>) => {
+    return new Request().initiate(url, {
+      ...options,
+      query,
+      method: 'GET'
+    })
   },
-  post: (url: string, body?: SearchParameters) => {
-    return new Request().initiate(url, {method: 'POST', body})
+  post: <T = any>(url: string, body?: SearchParameters, options?: UseFetchOptions<T>) => {
+    return new Request().initiate(url, {
+      ...options,
+      body,
+      method: 'POST'
+    })
   }
 }
