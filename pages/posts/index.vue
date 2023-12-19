@@ -1,31 +1,67 @@
 <script setup lang="ts">
-const posts = [
-  {
-    id: 5,
-    title: '这是一个标题',
-    published_at: '刚刚'
-  },
-  {
-    id: 4,
-    title: 'It\'s a headline',
-    published_at: '昨天'
-  },
-  {
-    id: 3,
-    title: '先写个简单的标题',
-    published_at: '上个月'
-  },
-  {
-    id: 2,
-    title: 'Let\'s start with a simple headline',
-    published_at: '去年'
-  },
-  {
-    id: 1,
-    title: 'First posts',
-    published_at: '前年'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import 'dayjs/locale/zh-cn'
+dayjs.extend(relativeTime)
+dayjs.locale('zh-cn')
+
+interface NullTime {
+  Time: string
+  Valid: boolean
+  Detail?: string
+}
+
+interface Post {
+  id: number
+  title: string
+  published_at: NullTime
+}
+
+const posts = ref<Array<Post>>([])
+const loadQuantity = ref(0)
+const total = ref(0)
+const params = reactive({
+  page: 1,
+  per_page: 10
+})
+const { refresh } = await useRequest.get('posts', params, {
+  transform: (response) => {
+    response.data.forEach((item: any) => {
+      if (item.published_at.Valid) {
+        item.published_at.Detail = dayjs(item.published_at.Time).format('YYYY-MM-DD HH:mm:ss')
+        item.published_at.Time = dayjs(item.published_at.Time).fromNow()
+      } else {
+        item.published_at.Time = '还没发布呢'
+      }
+    });
+    posts.value.push(...response.data)
+    loadQuantity.value += response.data.length
+    total.value = response.meta.total
   }
-]
+})
+
+/**
+ * 加载页面数据
+ */
+const loadPosts = () => {
+  let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
+  let windowHeight = document.documentElement.clientHeight || document.body.clientHeight
+  let scroll = document.documentElement.scrollTop || document.body.scrollTop
+  let distanceBottom = scrollHeight - windowHeight - scroll
+
+	if (distanceBottom < 350 && loadQuantity.value < total.value) {
+		params.page++
+
+    refresh()
+	}
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', useThrottle(loadPosts, 1000, { 'leading': false }))
+})
+onUnmounted(() => {
+  window.removeEventListener('scroll', useThrottle(loadPosts, 1000, { 'leading': false }))
+})
 </script>
 
 <template>
@@ -44,7 +80,10 @@ const posts = [
             >
               {{ post.title }}
             </NuxtLink>
-            <span class="text-gray-400 text-sm w-4 sm:w-20 text-center">{{ post.published_at }}</span>
+            <span
+              :title="post.published_at.Detail"
+              class="text-gray-400 text-sm w-4 sm:w-20 text-center cursor-pointer"
+            >{{ post.published_at.Time }}</span>
           </div>
         </template>
       </div>
