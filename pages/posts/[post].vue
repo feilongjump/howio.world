@@ -1,10 +1,4 @@
 <script setup lang="ts">
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import 'dayjs/locale/zh-cn'
-dayjs.extend(relativeTime)
-dayjs.locale('zh-cn')
-
 const route = useRoute()
 const { data: post } = await useRequest.get(route.path, {}, {
   transform: (post) => {
@@ -34,7 +28,7 @@ const { data: post } = await useRequest.get(route.path, {}, {
         <div class="flex gap-x-4 text-sm text-gray-400">
           <span
               :title="post.published_at.Detail"
-              class="text-gray-400 text-sm w-full cursor-pointer"
+              class="text-gray-400 text-sm w-20 cursor-pointer"
             >{{ post.published_at.Time }}</span>
           <!-- <span v-for="tag in post.tags">{{ tag }}</span> -->
         </div>

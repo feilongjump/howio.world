@@ -1,10 +1,4 @@
 <script setup lang="ts">
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import 'dayjs/locale/zh-cn'
-dayjs.extend(relativeTime)
-dayjs.locale('zh-cn')
-
 interface NullTime {
   Time: string
   Valid: boolean
@@ -73,7 +67,7 @@ onUnmounted(() => {
       </div>
       <div class="w-full flex flex-col gap-y-6">
         <template v-for="post in posts">
-          <div class="w-full flex justify-between">
+          <div class="w-full flex justify-between items-center">
             <NuxtLink
               class="flex justify-between text-gray-900 hover:underline decoration-0 underline-offset-4"
               :to="`/posts/${post.id}`"
@@ -82,7 +76,7 @@ onUnmounted(() => {
             </NuxtLink>
             <span
               :title="post.published_at.Detail"
-              class="text-gray-400 text-sm w-4 sm:w-20 text-center cursor-pointer"
+              class="text-gray-400 text-sm w-20 text-center cursor-pointer"
             >{{ post.published_at.Time }}</span>
           </div>
         </template>
