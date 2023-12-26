@@ -19,7 +19,7 @@ const loadQuantity = ref(0)
 const total = ref(0)
 const params = reactive({
   page: 1,
-  per_page: 10
+  per_page: 15
 })
 const { refresh } = await useRequest.get('posts', params, {
   transform: (response) => {
