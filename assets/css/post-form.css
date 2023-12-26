@@ -1,0 +1,30 @@
+.form-container {
+  @apply w-screen h-screen fixed top-0 left-0 bg-white flex flex-col;
+
+  .form-header {
+    @apply w-full h-16 border-b px-12 flex;
+
+    .left-box {
+      @apply w-4/5 h-full;
+
+      input {
+        @apply h-full w-full text-2xl font-semibold outline-none;
+      }
+    }
+
+    .right-box {
+      @apply w-1/5 h-full flex items-center justify-end gap-x-8 text-sm;
+
+      button {
+        @apply w-20 h-8 border border-blue-500 rounded-lg text-blue-500;
+      }
+      button:last-child {
+        @apply bg-blue-500 text-white;
+      }
+    }
+  }
+
+  .editor-container {
+    height: calc(theme('height.screen') - theme('height.16'));
+  }
+}

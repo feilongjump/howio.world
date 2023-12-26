@@ -1,0 +1,48 @@
+@import 'bytemd/dist/index.css';
+@import 'highlight.js/styles/atom-one-dark.css';
+
+.bytemd {
+  @apply h-full;
+}
+
+.markdown-body {
+  @apply prose;
+}
+
+.prose {
+  @apply max-w-none break-all text-[15px];
+
+  blockquote {
+    @apply bg-sky-50/60 py-1 border-none rounded-xl px-4;
+
+    p {
+      @apply not-italic my-2 text-slate-500;
+    }
+    p::before {
+      @apply content-[''];
+    }
+    p::after {
+      @apply content-[''];
+    }
+  }
+
+  .hljs {
+    @apply bg-transparent;
+  }
+
+  input[type="checkbox"] {
+    @apply my-0 mr-2;
+  }
+
+  p {
+    code {
+      @apply py-[2px] px-2 mx-2 bg-rose-100/70 border border-rose-200 text-rose-500 rounded-md;
+    }
+    code::before {
+      @apply content-[''];
+    }
+    code::after {
+      @apply content-[''];
+    }
+  }
+}

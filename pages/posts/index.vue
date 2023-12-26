@@ -1,4 +1,7 @@
 <script setup lang="ts">
+
+const { user } = useAuthStore()
+
 interface NullTime {
   Time: string
   Valid: boolean
@@ -61,7 +64,17 @@ onUnmounted(() => {
 <template>
   <div class="w-full h-full min-h-screen p-6 flex justify-center items-center">
     <div class="w-full max-w-2xl h-full flex justify-start flex-col my-16">
-      <img class="w-32 h-32 rounded-full" src="~/assets/img/avatar.jpg" />
+      <div class="relative w-32">
+        <img class="w-32 h-32 rounded-full" src="~/assets/img/avatar.jpg" />
+        <NuxtLink
+          v-if="! isEmpty(user)"
+          to="/posts/create"
+          class="w-8 h-8 bg-white absolute bottom-1 right-1 rounded-full shadow-xl
+            cursor-pointer flex justify-center items-center border border-gray-100/70"
+        >
+          <PencilIconOutline class="w-5 h-5 stroke-pink-400 fill-gray-300/70" />
+        </NuxtLink>
+      </div>
       <div class="my-12">
         <NuxtLink class="text-4xl font-bold" to="/">Hello World!</NuxtLink>
       </div>
@@ -76,7 +89,7 @@ onUnmounted(() => {
             </NuxtLink>
             <span
               :title="post.published_at.Detail"
-              class="text-gray-400 text-sm w-20 text-center cursor-pointer"
+              class="text-gray-400 text-sm inline-block text-center cursor-pointer"
             >{{ post.published_at.Time }}</span>
           </div>
         </template>
