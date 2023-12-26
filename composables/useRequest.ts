@@ -93,5 +93,18 @@ export const useRequest = {
       body,
       method: 'POST'
     })
+  },
+  put: <T = any>(url: string, body?: SearchParameters, options?: UseFetchOptions<T>) => {
+    return new Request().initiate(url, {
+      ...options,
+      body,
+      method: 'PUT'
+    })
+  },
+  delete: <T = any>(url: string, options?: UseFetchOptions<T>) => {
+    return new Request().initiate(url, {
+      ...options,
+      method: 'DELETE'
+    })
   }
 }
