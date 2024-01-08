@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     public: {
-      apiBase: ''
+      apiBase: process.env.NUXT_APP_API_ROOT
     }
   },
   tailwindcss: {
