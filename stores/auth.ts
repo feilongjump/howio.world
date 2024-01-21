@@ -32,13 +32,13 @@ export const useAuthStore = defineStore('auth', () => {
 
     user.value = userParams
   }
-  const setToken = (token: string) => {
+  const setToken = (tokenParams: string) => {
     if (! token) return
 
-    token = token
+    token.value = tokenParams
 
     // 从 token 中获取过期时间
-    const tokenArr = token.split('.')
+    const tokenArr = tokenParams.split('.')
     // 设置过期时间
     expired_at.value = JSON.parse(Base64.decode(tokenArr[1])).exp
   }
