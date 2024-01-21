@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { user } = useAuthStore()
 
-const sayHello = () => alert(`Hello, ${user.name} !`)
+const sayHello = () => alert(`Hello, ${user?.name} !`)
 </script>
 
 <template>
