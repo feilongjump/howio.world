@@ -1,4 +1,23 @@
 <script setup lang="ts">
+
+const menus = [
+  {
+    icon: resolveComponent('HomeModernIconOutline'),
+    link: '/backstage'
+  },
+  {
+    icon: resolveComponent('NewspaperIconOutline'),
+    link: '/backstage/posts'
+  }
+]
+
+const { clear } = useAuthStore()
+const logout = () => {
+  clear()
+
+  alert('欢迎下次光临')
+  navigateTo('/')
+}
 </script>
 
 <template>
@@ -9,16 +28,20 @@
 
     <!-- menu -->
     <div class="menu-box">
-      <NuxtLink to="/backstage">
-        <HomeModernIconOutline class="icon" />
-      </NuxtLink>
-      <NuxtLink to="/backstage/posts">
-        <NewspaperIconOutline class="icon" />
+      <NuxtLink
+        v-for="menu in menus"
+        :to="menu.link"
+        :class="[$route.path === menu.link ? 'active-menu' : '']"
+      >
+        <component :is="menu.icon" class="icon">
+        </component>
       </NuxtLink>
     </div>
 
     <div class="w-full h-12 flex justify-center items-center">
-      <LogoutIconOutline class="w-6 h-6 stroke-slate-500 hover:stroke-red-400 cursor-pointer" />
+      <LogoutIconOutline
+        @click="logout"
+        class="w-6 h-6 stroke-slate-500 hover:stroke-red-400 cursor-pointer" />
     </div>
   </div>
 </template>
@@ -32,8 +55,18 @@
   .menu-box {
     @apply flex flex-col gap-12;
 
+    a {
+      @apply w-12 h-12 bg-transparent rounded-full flex justify-center items-center;
+    }
     .icon {
-      @apply w-6 h-6 stroke-slate-500 cursor-pointer hover:fill-cyan-300;
+      @apply w-6 h-6 stroke-slate-500 bg-transparent hover:fill-cyan-300;
+    }
+
+    .active-menu {
+      @apply bg-white;
+      .icon {
+        @apply fill-cyan-300;
+      }
     }
   }
 }

@@ -2,9 +2,11 @@
 </script>
 
 <template>
-  <NuxtLayout>
-    <div>
-      Posts
-    </div>
-  </NuxtLayout>
+  <div>
+    <NuxtLayout>
+      <div>
+        Posts
+      </div>
+    </NuxtLayout>
+  </div>
 </template>

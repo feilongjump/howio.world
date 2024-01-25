@@ -2,11 +2,13 @@
 </script>
 
 <template>
-  <NuxtLayout>
-    <div>
-      dashboard
-    </div>
-  </NuxtLayout>
+  <div>
+    <NuxtLayout>
+      <div>
+        dashboard
+      </div>
+    </NuxtLayout>
+  </div>
 </template>
 
 
