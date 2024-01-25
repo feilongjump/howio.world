@@ -18,5 +18,20 @@ export default defineNuxtModule({
       export: 'TrashIcon',
       filePath: '@heroicons/vue/24/outline',
     })
+    addComponent({
+      name: 'HomeModernIconOutline',
+      export: 'HomeModernIcon',
+      filePath: '@heroicons/vue/24/outline',
+    })
+    addComponent({
+      name: 'NewspaperIconOutline',
+      export: 'NewspaperIcon',
+      filePath: '@heroicons/vue/24/outline',
+    })
+    addComponent({
+      name: 'LogoutIconOutline',
+      export: 'ArrowLeftStartOnRectangleIcon',
+      filePath: '@heroicons/vue/24/outline',
+    })
   },
 })

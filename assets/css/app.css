@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .glaze-box {
+    @apply bg-white/30 rounded-xl border border-white shadow-sm;
+  }
+}
