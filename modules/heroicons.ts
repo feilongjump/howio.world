@@ -33,5 +33,20 @@ export default defineNuxtModule({
       export: 'ArrowLeftStartOnRectangleIcon',
       filePath: '@heroicons/vue/24/outline',
     })
+    addComponent({
+      name: 'HeartIconOutline',
+      export: 'HeartIcon',
+      filePath: '@heroicons/vue/24/outline',
+    })
+    addComponent({
+      name: 'CommentIconOutline',
+      export: 'ChatBubbleLeftEllipsisIcon',
+      filePath: '@heroicons/vue/24/outline',
+    })
+    addComponent({
+      name: 'ClickIconOutline',
+      export: 'CursorArrowRaysIcon',
+      filePath: '@heroicons/vue/24/outline',
+    })
   },
 })

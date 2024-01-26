@@ -5,6 +5,7 @@
   <div id="layout-container">
     <Sidebar />
     <main>
+      <slot name="header"></slot>
       <slot />
     </main>
   </div>
@@ -12,7 +13,7 @@
 
 <style scoped lang="postcss">
 #layout-container {
-  @apply w-screen min-h-screen p-8;
+  @apply min-h-screen p-8;
 
   background-image: linear-gradient(
     to right top,
