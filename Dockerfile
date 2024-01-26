@@ -4,7 +4,7 @@ COPY . /app/
 
 WORKDIR /app
 
-RUN npm config set registry https://registry.npm.taobao.org/
+RUN npm config set registry https://registry.npmmirror.com
 RUN npm install -g pnpm
 
 RUN pnpm install
