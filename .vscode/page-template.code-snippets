@@ -1,0 +1,20 @@
+{
+  "Page template": {
+    "prefix": "page",//代码片段的命令
+    "body": [//body里面就是模板代码片段
+      "<script setup lang=\"ts\">",
+      "</script>",
+      "",
+      "<template>",
+      "  $0",
+      "</template>",
+      "",
+      "<route lang=\"json\">"
+      "{"
+      "  \"name\": \"${TM_FILENAME_BASE}\""
+      "}"
+      "</route>"
+    ],
+    "description": "page template"
+  }
+}
