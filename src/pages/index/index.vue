@@ -14,6 +14,9 @@ function go(routeName: any) {
       <n-button @click="go('about')">
         About
       </n-button>
+      <n-button strong secondary type="info" @click="go('sign-in')">
+        Auth
+      </n-button>
       <n-button type="primary" @click="go('backstage')">
         Backstage
       </n-button>
