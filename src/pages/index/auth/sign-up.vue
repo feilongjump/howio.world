@@ -2,14 +2,18 @@
 import type { FormInst } from 'naive-ui'
 
 interface ModelType {
-  username: string | null
+  name: string | null
+  email: string | null
   password: string | null
+  verification_code: string | null
 }
 
 const formRef = ref<FormInst | null>(null)
 const model = ref<ModelType>({
-  username: null,
+  name: null,
+  email: null,
   password: null,
+  verification_code: null,
 })
 </script>
 
@@ -30,7 +34,7 @@ const model = ref<ModelType>({
       </div>
       <!-- img -->
       <div mb-32 flex flex-col items-center>
-        <img h-78 w-78 src="/src/assets/auth/sign-in.gif" alt="">
+        <img h-78 w-78 src="/src/assets/auth/sign-up.png" alt="">
         <div mt-2>
           <span text-xs text-gray-400>
             Icons by
@@ -56,7 +60,7 @@ const model = ref<ModelType>({
       <div
         lt-sm="w-full px-6 py-8 border-none shadow-none"
         border="1 solid gray-200"
-        z-10 h-lg w-80 rounded-xl bg-white px-12 py-16 shadow-2xl
+        z-10 min-h-lg w-80 rounded-xl bg-white px-12 py-16 shadow-2xl
       >
         <header w-full flex items-center justify-end lt-lg="justify-between">
           <router-link :to="{ name: 'index' }" lg="hidden">
@@ -65,62 +69,60 @@ const model = ref<ModelType>({
             </span>
           </router-link>
           <router-link
-            :to="{ name: 'sign-up' }"
+            :to="{ name: 'sign-in' }"
             flex flex-col items-end text-xs text-blue-500
           >
-            <span>No account?</span>
-            <span>Sign Up</span>
+            I've got an account.
           </router-link>
         </header>
         <div mb-8 mt-3>
-          <span text-5xl font-bold>Sign In</span>
-        </div>
-        <div mb-16 h-12 flex gap-x-4>
-          <div
-            class="w-10/12 bg-#33AFFD"
-            h-full flex cursor-pointer items-center justify-center gap-x-3 rounded-xl
-          >
-            <img h-6 w-6 src="/src/assets/github.png" alt="">
-            <span text-white font-bold>Sign in with GitHub</span>
-          </div>
-          <div
-            class="w-2/12 bg-#04BE02"
-            h-full flex cursor-pointer items-center justify-center gap-x-3 rounded-xl
-          >
-            <img h-6 w-6 src="/src/assets/wechat.svg" alt="">
-          </div>
+          <span text-5xl font-bold>Sign Up</span>
         </div>
         <!-- form -->
         <div>
           <n-form ref="formRef" :model="model" size="large">
-            <n-form-item path="username" label="账号">
+            <n-form-item path="name" label="用户名">
               <n-input
-                v-model:value="model.username"
+                v-model:value="model.name"
+                rounded-xl
+                type="text"
+                @keydown.enter.prevent
+              />
+            </n-form-item>
+            <n-form-item path="email" label="邮箱">
+              <n-input
+                v-model:value="model.email"
                 rounded-xl
                 type="text"
                 @keydown.enter.prevent
               />
             </n-form-item>
             <n-form-item path="password" label="密码">
+              <n-input
+                v-model:value="model.password"
+                rounded-xl
+                type="password"
+                show-password-on="click"
+                @keydown.enter.prevent
+              />
+            </n-form-item>
+            <n-form-item path="verification_code" label="验证码">
               <div w-full>
                 <n-input
-                  v-model:value="model.password"
+                  v-model:value="model.verification_code"
                   rounded-xl
-                  type="password"
-                  show-password-on="click"
                   @keydown.enter.prevent
                 />
-                <router-link
-                  float-right mt-1 text-sm text-blue-400 font-bold
-                  :to="{ name: 'index' }"
+                <span
+                  float-right mt-1 cursor-pointer text-sm text-blue-400 font-bold
                 >
-                  Forgot password?
-                </router-link>
+                  发送验证码
+                </span>
               </div>
             </n-form-item>
             <div flex justify-end>
               <n-button round w-full size="large" type="primary">
-                Sign In
+                Sign Up
               </n-button>
             </div>
           </n-form>
@@ -137,6 +139,6 @@ const model = ref<ModelType>({
 
 <route lang="json">
 {
-  "name": "sign-in"
+  "name": "sign-up"
 }
 </route>
