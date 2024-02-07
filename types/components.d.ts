@@ -7,12 +7,18 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    Hello: typeof import('./components/Hello.vue')['default']
+    AppProvider: typeof import('./../src/components/AppProvider/AppProvider.vue')['default']
+    Hello: typeof import('./../src/components/Hello.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
+    NConfigProvider: typeof import('naive-ui')['NConfigProvider']
+    NDialogProvider: typeof import('naive-ui')['NDialogProvider']
     NForm: typeof import('naive-ui')['NForm']
     NFormItem: typeof import('naive-ui')['NFormItem']
     NIcon: typeof import('naive-ui')['NIcon']
     NInput: typeof import('naive-ui')['NInput']
+    NLoadingBarProvider: typeof import('naive-ui')['NLoadingBarProvider']
+    NMessageProvider: typeof import('naive-ui')['NMessageProvider']
+    NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

@@ -23,7 +23,7 @@ export default defineConfig({
           path: 'backstage/',
         },
       ],
-      dts: 'src/typed-router.d.ts',
+      dts: 'types/typed-router.d.ts',
     }),
     AutoImport({
       imports: [
@@ -35,11 +35,11 @@ export default defineConfig({
           'vue-router/auto': ['useLink'],
         },
       ],
-      dts: 'src/auto-imports.d.ts',
+      dts: 'types/auto-imports.d.ts',
     }),
     Components({
       resolvers: [NaiveUiResolver()],
-      dts: 'src/components.d.ts',
+      dts: 'types/components.d.ts',
     }),
     vue(),
     UnoCSS(),
