@@ -2,7 +2,16 @@
 const router = useRouter()
 const route = useRoute()
 
-const menus = []
+const menus = [
+  {
+    name: 'Dashboard',
+    routeName: 'backstage',
+  },
+  {
+    name: 'Posts',
+    routeName: 'backstage-posts',
+  },
+]
 
 function go(routeName: any) {
   router.push({ name: routeName })
