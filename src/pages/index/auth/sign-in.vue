@@ -22,11 +22,7 @@ const model = ref<ModelType>({
     >
       <!-- logo -->
       <div h-52>
-        <router-link :to="{ name: 'index' }">
-          <span text-xl font-bold>
-            How <span text-blue-400>IO</span><span ml-2px text-pink-500>.</span>
-          </span>
-        </router-link>
+        <Logo />
       </div>
       <!-- img -->
       <div mb-32 flex flex-col items-center>
@@ -59,11 +55,9 @@ const model = ref<ModelType>({
         z-10 h-lg w-80 rounded-xl bg-white px-12 py-16 shadow-2xl
       >
         <header w-full flex items-center justify-end lt-lg="justify-between">
-          <router-link :to="{ name: 'index' }" lg="hidden">
-            <span text-xl font-bold>
-              How <span text-blue-400>IO</span><span ml-2px text-pink-500>.</span>
-            </span>
-          </router-link>
+          <div lg="hidden">
+            <Logo />
+          </div>
           <router-link
             :to="{ name: 'sign-up' }"
             flex flex-col items-end text-xs text-blue-500
