@@ -28,7 +28,7 @@ const model = ref<ModelType>({
       </div>
       <!-- img -->
       <div mb-32 flex flex-col items-center>
-        <img h-78 w-78 src="/src/assets/auth/forgot-password.png" alt="">
+        <img h-78 w-78 src="~assets/auth/forgot-password.png" alt="">
         <div mt-2>
           <span text-xs text-gray-400>
             Icons by
@@ -115,7 +115,7 @@ const model = ref<ModelType>({
     </div>
     <!-- img -->
     <div fixed bottom-0 right-0 h-72 w-72 lt-md="hidden">
-      <img h-full w-full src="/src/assets/auth/corner.png" alt="">
+      <img h-full w-full src="~assets/auth/corner.png" alt="">
     </div>
   </div>
 </template>

@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import UnoCSS from 'unocss/vite'
 import vue from '@vitejs/plugin-vue'
@@ -10,6 +11,13 @@ import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      '~/': `${path.resolve(__dirname, 'src')}/`,
+      '~assets': `${path.resolve(__dirname, 'src/assets')}/`,
+      '~utils': `${path.resolve(__dirname, 'src/utils')}/`,
+    },
+  },
   plugins: [
     // https://github.com/posva/unplugin-vue-router
     VueRouter({

@@ -9,12 +9,13 @@ import {
   SquarePen,
   Trash2,
 } from 'lucide-vue-next'
-import { renderIcon } from '~/utils/index'
-import demo1 from '/src/assets/demo/1.jpg'
-import demo2 from '/src/assets/demo/2.jpg'
-import demo3 from '/src/assets/demo/3.jpg'
-import demo4 from '/src/assets/demo/4.jpg'
-import demo5 from '/src/assets/demo/5.jpg'
+import { renderIcon } from '~utils/index.ts'
+import avatar from '~assets/avatar.jpg'
+import demo1 from '~assets/demo/1.jpg'
+import demo2 from '~assets/demo/2.jpg'
+import demo3 from '~assets/demo/3.jpg'
+import demo4 from '~assets/demo/4.jpg'
+import demo5 from '~assets/demo/5.jpg'
 
 const text = [
   '今天是个美好的一天！天空湛蓝☀️，微风拂过，心情格外舒畅😊。打算约上好友一起去郊游🌳，放松身心，感受大自然的魅力🌺🌿。在这个美好的时刻，让我们忘记烦恼，尽情享受每一刻的快乐！加油💪！',
@@ -53,56 +54,56 @@ const posts = [
   {
     id: 1,
     title: 'This is a posts title.',
-    avatar: '/src/assets/avatar.jpg',
+    avatar,
     published_at: '1 DAY AGO',
     imgs: demoCharts(),
   },
   {
     id: 2,
     title: 'This is a posts title.',
-    avatar: '/src/assets/avatar.jpg',
+    avatar,
     published_at: '1 DAY AGO',
     imgs: demoCharts(),
   },
   {
     id: 3,
     title: 'This is a posts title.',
-    avatar: '/src/assets/avatar.jpg',
+    avatar,
     published_at: '1 DAY AGO',
     imgs: demoCharts(),
   },
   {
     id: 4,
     title: 'This is a posts title.',
-    avatar: '/src/assets/avatar.jpg',
+    avatar,
     published_at: '1 DAY AGO',
     imgs: demoCharts(),
   },
   {
     id: 5,
     title: 'This is a posts title.',
-    avatar: '/src/assets/avatar.jpg',
+    avatar,
     published_at: '1 DAY AGO',
     imgs: demoCharts(),
   },
   {
     id: 6,
     title: 'This is a posts title.',
-    avatar: '/src/assets/avatar.jpg',
+    avatar,
     published_at: '1 DAY AGO',
     imgs: demoCharts(),
   },
   {
     id: 7,
     title: 'This is a posts title.',
-    avatar: '/src/assets/avatar.jpg',
+    avatar,
     published_at: '1 DAY AGO',
     imgs: demoCharts(),
   },
   {
     id: 8,
     title: 'This is a posts title.',
-    avatar: '/src/assets/avatar.jpg',
+    avatar,
     published_at: '1 DAY AGO',
     imgs: demoCharts(),
   },
