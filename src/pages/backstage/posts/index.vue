@@ -109,18 +109,22 @@ const posts = [
   },
 ]
 
-const options = [
-  {
-    label: 'Edit',
-    key: 'edit',
-    icon: renderIcon(SquarePen, { class: ['text-blue-300'] }),
-  },
-  {
-    label: 'Delete',
-    key: 'delete',
-    icon: renderIcon(Trash2, { class: ['text-red-300'] }),
-  },
-]
+function handleOptions(postId: number) {
+  const options = [
+    {
+      label: 'Edit',
+      key: `edit|${postId}`,
+      icon: renderIcon(SquarePen, { class: ['text-blue-300'] }),
+    },
+    {
+      label: 'Delete',
+      key: `delete|${postId}`,
+      icon: renderIcon(Trash2, { class: ['text-red-300'] }),
+    },
+  ]
+
+  return options
+}
 
 function create() {
   window.$message.info('Create Posts.')
@@ -130,8 +134,10 @@ function search() {
   window.$message.info('Search Posts.')
 }
 
-function handleSelect(key: string) {
-  window.$message.info(key)
+function handleSelect(keyStr: string) {
+  const [key, postId] = keyStr.split('|')
+
+  window.$message.info(`${key} post, post is ${postId}`)
 }
 </script>
 
@@ -181,7 +187,7 @@ function handleSelect(key: string) {
             <div
               v-for="(post, index) in posts"
               :key="index"
-              max-h-64 p-6 pr-0 hover:bg-gray-50
+              p-6 pr-0 hover:bg-gray-50
               border-b="1 solid gray-50"
             >
               <div flex justify-between border-r="3 solid blue-300">
@@ -193,7 +199,7 @@ function handleSelect(key: string) {
                   <span text-xs text-gray-400>{{ post.published_at }}</span>
                   <n-dropdown
                     trigger="click"
-                    :options="options"
+                    :options="handleOptions(post.id)"
                     :show-arrow="true"
                     @select="handleSelect"
                   >
@@ -204,7 +210,7 @@ function handleSelect(key: string) {
                 </div>
               </div>
               <!-- abstract -->
-              <div pr-2>
+              <div mb-8 pr-2>
                 <p line-clamp-5>
                   {{ text[index % 2] }}
                 </p>
@@ -212,7 +218,7 @@ function handleSelect(key: string) {
               <div flex items-end justify-between pr-2>
                 <div
                   v-if="post.imgs"
-                  h-16 flex gap-x-2 overflow-hidden rounded-xl p-2
+                  h-16 max-w-52 flex gap-x-2 overflow-hidden rounded-xl p-2
                   border="1 solid gray-300"
                 >
                   <n-image
