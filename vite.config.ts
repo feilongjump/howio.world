@@ -22,6 +22,13 @@ export default defineConfig({
     // https://github.com/posva/unplugin-vue-router
     VueRouter({
       extensions: ['.vue'],
+      // list of glob files to exclude from the routes generation
+      // e.g. ['**/__*'] will exclude all files and folders starting with `__`
+      // e.g. ['**/__*/**/*'] will exclude all files within folders starting with `__`
+      // e.g. ['**/*.component.vue'] will exclude components ending with `.component.vue`
+      exclude: [
+        '**/components/*',
+      ],
       routesFolder: [
         {
           src: 'src/pages/index',
