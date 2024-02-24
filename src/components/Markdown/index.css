@@ -1,0 +1,9 @@
+@import 'bytemd/dist/index.css';
+@import 'highlight.js/styles/atom-one-dark.css';
+
+.bytemd {
+  height: 100%;
+}
+.bytemd-editor .CodeMirror {
+  @apply bg-slate-50;
+}

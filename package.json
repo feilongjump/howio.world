@@ -11,7 +11,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@bytemd/plugin-breaks": "^1.21.0",
+    "@bytemd/plugin-frontmatter": "^1.21.0",
+    "@bytemd/plugin-gemoji": "^1.21.0",
+    "@bytemd/plugin-gfm": "^1.21.0",
+    "@bytemd/plugin-highlight": "^1.21.0",
+    "@bytemd/plugin-medium-zoom": "^1.21.0",
+    "@bytemd/plugin-mermaid": "^1.21.0",
+    "@bytemd/vue-next": "^1.21.0",
     "@vueuse/core": "^10.7.2",
+    "bytemd": "^1.21.0",
+    "highlight.js": "^11.9.0",
     "lucide-vue-next": "^0.331.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.19",
