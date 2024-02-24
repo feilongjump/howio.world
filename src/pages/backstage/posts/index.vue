@@ -9,6 +9,7 @@ import {
   SquarePen,
   Trash2,
 } from 'lucide-vue-next'
+import Form from './components/form.vue'
 import { renderIcon } from '~utils/index.ts'
 import avatar from '~assets/avatar.jpg'
 import demo1 from '~assets/demo/1.jpg'
@@ -16,6 +17,8 @@ import demo2 from '~assets/demo/2.jpg'
 import demo3 from '~assets/demo/3.jpg'
 import demo4 from '~assets/demo/4.jpg'
 import demo5 from '~assets/demo/5.jpg'
+
+const editPostId = ref('')
 
 const text = [
   '今天是个美好的一天！天空湛蓝☀️，微风拂过，心情格外舒畅😊。打算约上好友一起去郊游🌳，放松身心，感受大自然的魅力🌺🌿。在这个美好的时刻，让我们忘记烦恼，尽情享受每一刻的快乐！加油💪！',
@@ -137,7 +140,10 @@ function search() {
 function handleSelect(keyStr: string) {
   const [key, postId] = keyStr.split('|')
 
-  window.$message.info(`${key} post, post is ${postId}`)
+  if (key === 'edit')
+    editPostId.value = postId
+  else
+    window.$message.error(`正在删除 posts: ${postId}`)
 }
 </script>
 
@@ -170,7 +176,7 @@ function handleSelect(keyStr: string) {
               border-b="1 solid gray-200"
             >
               <input
-                h-full w-full border-none p-0 pl-2 focus:outline-none
+                h-full w-full border-none p-0 pl-2 outline-none
                 placeholder="Search posts"
                 type="text"
               >
@@ -268,8 +274,10 @@ function handleSelect(keyStr: string) {
           </div>
         </n-scrollbar>
       </div>
-      <!-- right -->
-      <div>right</div>
+      <!-- form -->
+      <Form
+        :id="editPostId"
+      />
     </div>
   </div>
 </template>
