@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui'
+import SignInImg from '~assets/auth/sign-in.gif'
+import CornerImg from '~assets/auth/corner.png'
+import GitHubImg from '~assets/github.png'
+import WeChatImg from '~assets/wechat.svg'
 
 interface ModelType {
   username: string | null
@@ -26,7 +30,7 @@ const model = ref<ModelType>({
       </div>
       <!-- img -->
       <div mb-32 flex flex-col items-center>
-        <img h-78 w-78 src="~assets/auth/sign-in.gif" alt="">
+        <img h-78 w-78 :src="SignInImg" alt="">
         <div mt-2>
           <span text-xs text-gray-400>
             Icons by
@@ -74,14 +78,14 @@ const model = ref<ModelType>({
             class="w-10/12 bg-#33AFFD"
             h-full flex cursor-pointer items-center justify-center gap-x-3 rounded-xl
           >
-            <img h-6 w-6 src="~assets/github.png" alt="">
+            <img h-6 w-6 :src="GitHubImg" alt="">
             <span text-white font-bold>Sign in with GitHub</span>
           </div>
           <div
             class="w-2/12 bg-#04BE02"
             h-full flex cursor-pointer items-center justify-center gap-x-3 rounded-xl
           >
-            <img h-6 w-6 src="~assets/wechat.svg" alt="">
+            <img h-6 w-6 :src="WeChatImg" alt="">
           </div>
         </div>
         <!-- form -->
@@ -124,7 +128,7 @@ const model = ref<ModelType>({
     </div>
     <!-- img -->
     <div fixed bottom-0 right-0 h-72 w-72 lt-md="hidden">
-      <img h-full w-full src="~assets/auth/corner.png" alt="">
+      <img h-full w-full :src="CornerImg" alt="">
     </div>
   </div>
 </template>
