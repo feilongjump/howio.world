@@ -17,7 +17,17 @@ import demo2 from '~assets/demo/2.jpg'
 import demo3 from '~assets/demo/3.jpg'
 import demo4 from '~assets/demo/4.jpg'
 import demo5 from '~assets/demo/5.jpg'
+import useMyFetch from '~utils/fetch'
 
+interface Post {
+  id: number
+  title: string
+  published_at: string
+  imgs: string[] | null
+}
+
+const posts = ref<Post[]>([])
+const pageMeta = ref()
 const editPostId = ref('')
 
 const text = [
@@ -25,6 +35,43 @@ const text = [
   'Today is a wonderful day! The sun is shining brightly ☀️, and there\'s a gentle breeze blowing, making me feel extra cheerful 😊. Planning to go for a picnic 🧺 with friends, surrounded by the beauty of nature 🌳🌻. In moments like these, let\'s forget our worries and soak in the joy of the present! Let\'s make today amazing! 🎉',
 ]
 
+function handleOptions(postId: number) {
+  const options = [
+    {
+      label: 'Edit',
+      key: `edit|${postId}`,
+      icon: renderIcon(SquarePen, { class: ['text-blue-300'] }),
+    },
+    {
+      label: 'Delete',
+      key: `delete|${postId}`,
+      icon: renderIcon(Trash2, { class: ['text-red-300'] }),
+    },
+  ]
+
+  return options
+}
+
+function create() {
+  editPostId.value = ''
+}
+
+function search() {
+  window.$message.info('Search Posts.')
+}
+
+async function handleSelect(keyStr: string) {
+  const [key, postId] = keyStr.split('|')
+
+  if (key === 'edit') { editPostId.value = postId }
+  else {
+    await useMyFetch(`posts/${postId}`).delete().json()
+    window.$message.success('删除成功')
+    getPosts()
+  }
+}
+
+// todo: Delete
 function demoCharts() {
   const quantity = Math.floor(Math.random() * 5)
   if (quantity === 0)
@@ -53,98 +100,22 @@ function demoCharts() {
   return result.slice(0, quantity)
 }
 
-const posts = [
-  {
-    id: 1,
-    title: 'This is a posts title.',
-    avatar,
-    published_at: '1 DAY AGO',
-    imgs: demoCharts(),
-  },
-  {
-    id: 2,
-    title: 'This is a posts title.',
-    avatar,
-    published_at: '1 DAY AGO',
-    imgs: demoCharts(),
-  },
-  {
-    id: 3,
-    title: 'This is a posts title.',
-    avatar,
-    published_at: '1 DAY AGO',
-    imgs: demoCharts(),
-  },
-  {
-    id: 4,
-    title: 'This is a posts title.',
-    avatar,
-    published_at: '1 DAY AGO',
-    imgs: demoCharts(),
-  },
-  {
-    id: 5,
-    title: 'This is a posts title.',
-    avatar,
-    published_at: '1 DAY AGO',
-    imgs: demoCharts(),
-  },
-  {
-    id: 6,
-    title: 'This is a posts title.',
-    avatar,
-    published_at: '1 DAY AGO',
-    imgs: demoCharts(),
-  },
-  {
-    id: 7,
-    title: 'This is a posts title.',
-    avatar,
-    published_at: '1 DAY AGO',
-    imgs: demoCharts(),
-  },
-  {
-    id: 8,
-    title: 'This is a posts title.',
-    avatar,
-    published_at: '1 DAY AGO',
-    imgs: demoCharts(),
-  },
-]
+async function getPosts() {
+  const { data } = await useMyFetch('posts').get().json()
+  // todo: Delete
+  data.value.data.map((item: Post) => {
+    item.published_at = '好多天前'
+    item.imgs = demoCharts()
 
-function handleOptions(postId: number) {
-  const options = [
-    {
-      label: 'Edit',
-      key: `edit|${postId}`,
-      icon: renderIcon(SquarePen, { class: ['text-blue-300'] }),
-    },
-    {
-      label: 'Delete',
-      key: `delete|${postId}`,
-      icon: renderIcon(Trash2, { class: ['text-red-300'] }),
-    },
-  ]
-
-  return options
+    return item
+  })
+  posts.value = data.value.data
+  pageMeta.value = data.value.meta
 }
 
-function create() {
-  window.$message.info('Create Posts.')
-}
-
-function search() {
-  window.$message.info('Search Posts.')
-}
-
-function handleSelect(keyStr: string) {
-  const [key, postId] = keyStr.split('|')
-
-  if (key === 'edit')
-    editPostId.value = postId
-  else
-    window.$message.error(`正在删除 posts: ${postId}`)
-}
+onMounted(() => {
+  getPosts()
+})
 </script>
 
 <template>
@@ -198,7 +169,7 @@ function handleSelect(keyStr: string) {
             >
               <div flex justify-between border-r="3 solid blue-300">
                 <div w-72 flex items-center>
-                  <img mr-2 h-8 w-8 rounded-lg :src="post.avatar">
+                  <img mr-2 h-8 w-8 rounded-lg :src="avatar">
                   <span truncate font-bold>{{ post.title }}</span>
                 </div>
                 <div w-24 flex items-center justify-between pr-2>
@@ -277,6 +248,7 @@ function handleSelect(keyStr: string) {
       <!-- form -->
       <Form
         :id="editPostId"
+        @reload="getPosts"
       />
     </div>
   </div>

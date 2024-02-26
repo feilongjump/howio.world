@@ -1,28 +1,77 @@
 <script setup lang="ts">
-const props = defineProps({
-  id: String,
-})
+import useMyFetch from '~utils/fetch'
 
-watch(() => props.id, (newVal: string) => {
-  console.info(newVal)
-})
+interface Content {
+  id: number
+  markdown: string
+  body: string
+}
+interface Post {
+  id: number
+  title: string
+  published_at: string
+  content: Content
+}
 
-const post = ref({
+const props = defineProps<{
+  id: string
+}>()
+const emit = defineEmits<{
+  reload: [boolean]
+}>()
+
+const post = ref<Post>({
+  id: 0,
   title: '',
-  content: '',
+  published_at: '',
+  content: {
+    id: 0,
+    body: '',
+    markdown: '',
+  },
 })
+const _post = toRaw(post.value)
+
+watch(() => props.id, (newPostId: string) => {
+  if (newPostId !== '')
+    getPost(newPostId)
+  else
+    post.value = _post
+})
+
+async function getPost(id: string) {
+  const { data } = await useMyFetch(`posts/${id}`).get().json()
+  // todo: delete
+  data.value.published_at = ''
+  post.value = data.value
+}
 
 /**
  * 接收 markdown 内容
  *
- * @param markdown string
+ * @param content string
  */
 function receive(content: string) {
-  post.value.content = content
+  post.value.content.markdown = content
 }
 
-function submit() {
-  console.info(post.value)
+async function submit() {
+  if (props.id !== '') {
+    const { error } = await useMyFetch(`posts/${props.id}`).put(post).json()
+    if (error.value !== null)
+      return false
+    else
+      window.$message.success('更新成功！')
+  }
+  else {
+    const { error } = await useMyFetch('posts').post(post).json()
+    if (error.value !== null)
+      return false
+    else
+      window.$message.success('发布成功！')
+  }
+
+  emit('reload', true)
 }
 </script>
 
@@ -47,7 +96,7 @@ function submit() {
       b-t="1 solid gray-300"
     >
       <Editor
-        v-model:value="post.content"
+        v-model:value="post.content.markdown"
         placeholder="几乎所有好的写作都是从糟糕的第一次努力开始的。"
         class="h-[calc(100vh-8rem-4px)]"
         @update:value="receive"
