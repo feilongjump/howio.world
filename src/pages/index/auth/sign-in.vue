@@ -4,17 +4,30 @@ import SignInImg from '~assets/auth/sign-in.gif'
 import CornerImg from '~assets/auth/corner.png'
 import GitHubImg from '~assets/github.png'
 import WeChatImg from '~assets/wechat.svg'
+import useMyFetch from '~utils/fetch.ts'
 
-interface ModelType {
+interface SignInType {
   username: string | null
   password: string | null
 }
 
+const router = useRouter()
 const formRef = ref<FormInst | null>(null)
-const model = ref<ModelType>({
+const auth = ref<SignInType>({
   username: null,
   password: null,
 })
+
+async function submit() {
+  const { data } = await useMyFetch('auth/sign-in').post(auth.value).json()
+  useStorage('token', data.value.token)
+
+  const { data: me } = await useMyFetch('me').get().json()
+  useStorage('me', me)
+
+  window.$message.success('你好啊！今天天气晴朗🌞')
+  router.push({ name: 'index' })
+}
 </script>
 
 <template>
@@ -90,10 +103,10 @@ const model = ref<ModelType>({
         </div>
         <!-- form -->
         <div>
-          <n-form ref="formRef" :model="model" size="large">
+          <n-form ref="formRef" :model="auth" size="large">
             <n-form-item path="username" label="账号">
               <n-input
-                v-model:value="model.username"
+                v-model:value="auth.username"
                 rounded-xl
                 type="text"
                 @keydown.enter.prevent
@@ -102,7 +115,7 @@ const model = ref<ModelType>({
             <n-form-item path="password" label="密码">
               <div w-full>
                 <n-input
-                  v-model:value="model.password"
+                  v-model:value="auth.password"
                   rounded-xl
                   type="password"
                   show-password-on="click"
@@ -117,7 +130,7 @@ const model = ref<ModelType>({
               </div>
             </n-form-item>
             <div flex justify-end>
-              <n-button round w-full size="large" type="primary">
+              <n-button round w-full size="large" type="primary" @click="submit">
                 Sign In
               </n-button>
             </div>

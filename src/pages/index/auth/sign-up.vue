@@ -2,21 +2,47 @@
 import type { FormInst } from 'naive-ui'
 import SignUpImg from '~assets/auth/sign-in.gif'
 import CornerImg from '~assets/auth/corner.png'
+import useMyFetch from '~/utils/fetch'
 
-interface ModelType {
+interface AuthType {
   name: string | null
   email: string | null
   password: string | null
   verification_code: string | null
 }
 
+const router = useRouter()
 const formRef = ref<FormInst | null>(null)
-const model = ref<ModelType>({
+const auth = ref<AuthType>({
   name: null,
   email: null,
   password: null,
   verification_code: null,
 })
+
+function sendVerificationCode() {
+  if (auth.value.email === null) {
+    window.$message.error('请先填写邮箱！')
+    return false
+  }
+
+  const { error } = useMyFetch('user/email/verification-code').post({ email: auth.value.email }).json()
+  if (error.value !== null)
+    window.$message.error(error.value)
+  else
+    window.$message.success('邮箱验证码发送成功！')
+}
+
+async function submit() {
+  const { data } = await useMyFetch('auth/sign-up').post(auth.value).json()
+  useStorage('token', data.value.token)
+
+  const { data: me } = await useMyFetch('me').get().json()
+  useStorage('me', me)
+
+  window.$message.success('你好啊！今天天气晴朗🌞')
+  router.push({ name: 'index' })
+}
 </script>
 
 <template>
@@ -76,10 +102,10 @@ const model = ref<ModelType>({
         </div>
         <!-- form -->
         <div>
-          <n-form ref="formRef" :model="model" size="large">
+          <n-form ref="formRef" :model="auth" size="large">
             <n-form-item path="name" label="用户名">
               <n-input
-                v-model:value="model.name"
+                v-model:value="auth.name"
                 rounded-xl
                 type="text"
                 @keydown.enter.prevent
@@ -87,7 +113,7 @@ const model = ref<ModelType>({
             </n-form-item>
             <n-form-item path="email" label="邮箱">
               <n-input
-                v-model:value="model.email"
+                v-model:value="auth.email"
                 rounded-xl
                 type="text"
                 @keydown.enter.prevent
@@ -95,7 +121,7 @@ const model = ref<ModelType>({
             </n-form-item>
             <n-form-item path="password" label="密码">
               <n-input
-                v-model:value="model.password"
+                v-model:value="auth.password"
                 rounded-xl
                 type="password"
                 show-password-on="click"
@@ -105,19 +131,20 @@ const model = ref<ModelType>({
             <n-form-item path="verification_code" label="验证码">
               <div w-full>
                 <n-input
-                  v-model:value="model.verification_code"
+                  v-model:value="auth.verification_code"
                   rounded-xl
                   @keydown.enter.prevent
                 />
                 <span
                   float-right mt-1 cursor-pointer text-sm text-blue-400 font-bold
+                  @click="sendVerificationCode"
                 >
                   发送验证码
                 </span>
               </div>
             </n-form-item>
             <div flex justify-end>
-              <n-button round w-full size="large" type="primary">
+              <n-button round w-full size="large" type="primary" @click="submit">
                 Sign Up
               </n-button>
             </div>
