@@ -22,8 +22,8 @@ async function submit() {
   const { data } = await useMyFetch('auth/sign-in').post(auth.value).json()
   useStorage('token', data.value.token)
 
-  const { data: me } = await useMyFetch('me').get().json()
-  useStorage('me', me)
+  const { data: user } = await useMyFetch('me').get().json()
+  useStorage('user', user)
 
   window.$message.success('你好啊！今天天气晴朗🌞')
   router.push({ name: 'index' })
@@ -148,6 +148,9 @@ async function submit() {
 
 <route lang="json">
 {
-  "name": "sign-in"
+  "name": "sign-in",
+  "meta": {
+    "requiresAuth": true
+  }
 }
 </route>

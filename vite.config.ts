@@ -30,12 +30,9 @@ export default defineConfig({
         '**/components/*',
       ],
       routesFolder: [
+        'src/pages',
         {
-          src: 'src/pages/index',
-          path: '/',
-        },
-        {
-          src: 'src/pages/backstage',
+          src: 'src/backstage',
           path: 'backstage/',
         },
       ],

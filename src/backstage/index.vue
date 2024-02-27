@@ -19,7 +19,8 @@ function go() {
 {
   "name": "backstage",
   "meta": {
-    "layout": "index"
+    "layout": "backstage",
+    "requiresAuth": true
   }
 }
 </route>

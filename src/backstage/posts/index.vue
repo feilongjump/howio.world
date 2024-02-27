@@ -63,7 +63,9 @@ function search() {
 async function handleSelect(keyStr: string) {
   const [key, postId] = keyStr.split('|')
 
-  if (key === 'edit') { editPostId.value = postId }
+  if (key === 'edit') {
+    editPostId.value = postId
+  }
   else {
     await useMyFetch(`posts/${postId}`).delete().json()
     window.$message.success('删除成功')
@@ -258,7 +260,8 @@ onMounted(() => {
 {
   "name": "backstage-posts",
   "meta": {
-    "layout": "index"
+    "layout": "backstage",
+    "requiresAuth": true
   }
 }
 </route>

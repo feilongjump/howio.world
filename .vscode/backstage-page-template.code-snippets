@@ -13,7 +13,7 @@
       "{"
       "  \"name\": \"backstage-${TM_FILENAME_BASE}\","
       "  \"meta\": {"
-      "    \"layout\": \"index\""
+      "    \"layout\": \"backstage\""
       "  }"
       "}"
       "</route>"
