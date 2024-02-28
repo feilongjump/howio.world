@@ -1,26 +1,20 @@
 <script setup lang="ts">
-const router = useRouter()
+import { StorageSerializers } from '@vueuse/core'
 
-function go(routeName: any) {
-  router.push({ name: routeName })
-}
+const user = useStorage('user', null, undefined, { serializer: StorageSerializers.object })
 </script>
 
 <template>
-  <div class="h-screen w-screen flex flex-col items-center justify-center gap-y-4">
-    <span>Hello World</span>
-    <Hello />
-    <div class="flex gap-x-4">
-      <n-button @click="go('about')">
-        About
-      </n-button>
-      <n-button strong secondary type="info" @click="go('sign-in')">
-        Auth
-      </n-button>
-      <n-button type="primary" @click="go('backstage')">
-        Backstage
-      </n-button>
-    </div>
+  <div h-screen w-screen flex items-center justify-center gap-x-4>
+    <RouterLink :to="{ name: 'posts' }">
+      Posts
+    </RouterLink>
+    <RouterLink v-if="user" :to="{ name: 'backstage' }">
+      Hello, {{ user.name }} !
+    </RouterLink>
+    <RouterLink v-else :to="{ name: 'sign-in' }">
+      Sign In
+    </RouterLink>
   </div>
 </template>
 
