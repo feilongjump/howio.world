@@ -19,7 +19,7 @@
     "@bytemd/plugin-medium-zoom": "^1.21.0",
     "@bytemd/plugin-mermaid": "^1.21.0",
     "@bytemd/vue-next": "^1.21.0",
-    "@vueuse/core": "^10.8.0",
+    "@vueuse/core": "^10.9.0",
     "bytemd": "^1.21.0",
     "highlight.js": "^11.9.0",
     "lucide-vue-next": "^0.331.0",
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.4",
-    "@types/node": "^20.11.20",
+    "@types/node": "^20.11.21",
     "@unocss/eslint-plugin": "^0.58.5",
     "@vitejs/plugin-vue": "^4.6.2",
     "eslint": "^8.57.0",
