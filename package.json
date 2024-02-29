@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "cross-env NODE_OPTIONS=--max_old_space_size=10240 && vue-tsc && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview"
@@ -32,6 +32,7 @@
     "@types/node": "^20.11.21",
     "@unocss/eslint-plugin": "^0.58.5",
     "@vitejs/plugin-vue": "^4.6.2",
+    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "naive-ui": "^2.38.1",
     "typescript": "^5.3.3",
