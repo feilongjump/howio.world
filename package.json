@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "cross-env NODE_OPTIONS=--max_old_space_size=10240 && vue-tsc && vite build",
+    "build": "vue-tsc && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview"
@@ -23,16 +23,14 @@
     "bytemd": "^1.21.0",
     "highlight.js": "^11.9.0",
     "lucide-vue-next": "^0.331.0",
-    "pinia": "^2.1.7",
-    "vue": "^3.4.20",
+    "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.6.4",
-    "@types/node": "^20.11.21",
+    "@antfu/eslint-config": "^2.7.0",
+    "@types/node": "^20.11.24",
     "@unocss/eslint-plugin": "^0.58.5",
     "@vitejs/plugin-vue": "^4.6.2",
-    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "naive-ui": "^2.38.1",
     "typescript": "^5.3.3",
