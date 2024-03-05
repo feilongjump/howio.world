@@ -3,6 +3,8 @@ version: "3.9"
 services:
   app:
     build: .
+    volumes:
+      - ./dist:/var/www/howio.world/dist
     ports:
       - "80:80"
       - "443:443"
