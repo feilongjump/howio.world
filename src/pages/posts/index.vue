@@ -1,21 +1,10 @@
 <script setup lang="ts">
 import useMyFetch from '~utils/fetch'
 import avatarImg from '~assets/avatar.jpg'
-
-interface NullTime {
-  Time: string
-  Valid: boolean
-  Detail?: string
-}
-
-interface Post {
-  id: number
-  title: string
-  published_at: NullTime
-}
+import type { Posts } from '~/types/post'
 
 const postsTotal = ref(-1)
-const posts = ref<Array<Post>>([])
+const posts = ref<Posts[]>([])
 
 async function getPosts() {
   const { data } = await useMyFetch('posts').get().json()
@@ -41,7 +30,7 @@ useInfiniteScroll(
 </script>
 
 <template>
-  <div min-h-screen w-full flex items-center justify-center>
+  <div max-w-screen min-h-screen flex items-center justify-center px-6>
     <div my-16 max-w-2xl w-full flex flex-col justify-start>
       <div w-32>
         <img h-32 w-32 rounded-full :src="avatarImg">
@@ -66,9 +55,9 @@ useInfiniteScroll(
               {{ post.title }}
             </RouterLink>
             <span
-              :title="post.published_at.Detail"
+              :title="post.published_at.datetime"
               inline-block cursor-pointer text-center text-sm text-gray-400
-            >{{ post.published_at.Time }}</span>
+            >{{ post.published_at.humans ?? "暂未发布" }}</span>
           </div>
         </template>
       </div>

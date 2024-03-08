@@ -18,15 +18,15 @@ import demo3 from '~assets/demo/3.jpg'
 import demo4 from '~assets/demo/4.jpg'
 import demo5 from '~assets/demo/5.jpg'
 import useMyFetch from '~utils/fetch'
+import type { Posts } from '~/types/post'
 
-interface Post {
-  id: number
-  title: string
-  published_at: string
+// todo: Delete
+interface Img {
   imgs: string[] | null
 }
+type PostAImg = Posts & Img
 
-const posts = ref<Post[]>([])
+const posts = ref<PostAImg[]>()
 const pageMeta = ref()
 const editPostId = ref('')
 
@@ -105,8 +105,7 @@ function demoCharts() {
 async function getPosts() {
   const { data } = await useMyFetch('posts').get().json()
   // todo: Delete
-  data.value.data.map((item: Post) => {
-    item.published_at = '好多天前'
+  data.value.data.map((item: PostAImg) => {
     item.imgs = demoCharts()
 
     return item
@@ -175,7 +174,12 @@ onMounted(() => {
                   <span truncate font-bold>{{ post.title }}</span>
                 </div>
                 <div w-24 flex items-center justify-between pr-2>
-                  <span text-xs text-gray-400>{{ post.published_at }}</span>
+                  <span
+                    :title="post.published_at.datetime"
+                    text-xs text-gray-400
+                  >
+                    {{ post.published_at.humans ?? "暂未发布" }}
+                  </span>
                   <n-dropdown
                     trigger="click"
                     :options="handleOptions(post.id)"

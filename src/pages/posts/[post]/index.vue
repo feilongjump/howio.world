@@ -1,32 +1,16 @@
 <script setup lang="ts">
 import useMyFetch from '~utils/fetch'
 import avatarImg from '~assets/avatar.jpg'
+import type { Post } from '~/types/post'
 
 const route = useRoute()
 
-interface NullTime {
-  Time: string
-  Valid: boolean
-  Detail?: string
-}
-interface Content {
-  body: string
-  markdown: string
-}
-
-interface Post {
-  id: number
-  title: string
-  published_at: NullTime
-  content: Content
-}
 const post = ref<Post>({
   id: 0,
   title: '',
   published_at: {
-    Time: '',
-    Valid: false,
-    Detail: '',
+    humans: '',
+    datetime: '',
   },
   content: {
     body: '',
@@ -54,9 +38,9 @@ onMounted(async () => {
         </h1>
         <div flex items-center gap-x-4 text-sm text-gray-400>
           <span
-            :title="post.published_at.Detail"
+            :title="post.published_at.datetime"
             inline-block cursor-pointer text-sm text-gray-400
-          >{{ post.published_at.Time }}</span>
+          >{{ post.published_at.humans ?? "暂未发布" }}</span>
           <!-- <span v-for="tag in post.tags">{{ tag }}</span> -->
         </div>
       </div>

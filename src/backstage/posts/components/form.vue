@@ -1,17 +1,6 @@
 <script setup lang="ts">
 import useMyFetch from '~utils/fetch'
-
-interface Content {
-  id: number
-  markdown: string
-  body: string
-}
-interface Post {
-  id: number
-  title: string
-  published_at: string
-  content: Content
-}
+import type { SavePost } from '~/types/post'
 
 const props = defineProps<{
   id: string
@@ -20,12 +9,10 @@ const emit = defineEmits<{
   reload: [boolean]
 }>()
 
-const post = ref<Post>({
-  id: 0,
+const post = ref<SavePost>({
   title: '',
   published_at: '',
   content: {
-    id: 0,
     body: '',
     markdown: '',
   },
@@ -41,8 +28,8 @@ watch(() => props.id, (newPostId: string) => {
 
 async function getPost(id: string) {
   const { data } = await useMyFetch(`posts/${id}`).get().json()
-  // todo: delete
-  data.value.published_at = ''
+
+  data.value.published_at = data.value.published_at.datetime
   post.value = data.value
 }
 
