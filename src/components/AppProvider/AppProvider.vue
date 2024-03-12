@@ -24,12 +24,14 @@ const NaiveProviderContent = defineComponent({
     :locale="zhCN"
     :date-locale="dateZhCN"
     :theme-overrides="themeOverrides"
+    relative
   >
     <n-dialog-provider>
       <n-loading-bar-provider>
         <n-notification-provider>
           <n-message-provider>
             <slot />
+            <Footer />
             <NaiveProviderContent />
           </n-message-provider>
         </n-notification-provider>
