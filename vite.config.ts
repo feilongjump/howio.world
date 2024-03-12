@@ -8,6 +8,7 @@ import VueRouter from 'unplugin-vue-router/vite'
 import Layouts from 'vite-plugin-vue-layouts'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import { prismjsPlugin } from 'vite-plugin-prismjs'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -60,5 +61,11 @@ export default defineConfig({
     }),
     vue(),
     UnoCSS(),
+    prismjsPlugin({
+      languages: 'all', // 语言
+      plugins: ['show-language', 'copy-to-clipboard'],
+      theme: 'okaidia', // 主题
+      css: true,
+    }),
   ],
 })

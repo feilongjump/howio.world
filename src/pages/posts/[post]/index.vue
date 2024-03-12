@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Prism from 'prismjs'
 import useMyFetch from '~utils/fetch'
 import avatarImg from '~assets/avatar.jpg'
 import type { Post } from '~/types/post'
@@ -21,6 +22,9 @@ const post = ref<Post>({
 onMounted(async () => {
   const { data } = await useMyFetch(route.path).get().json()
   post.value = data.value
+})
+onUpdated(() => {
+  Prism.highlightAll() // 修改内容后重新渲染
 })
 </script>
 
@@ -45,7 +49,7 @@ onMounted(async () => {
         </div>
       </div>
       <!-- body -->
-      <div v-html="post.content.body" />
+      <div markdown-body v-html="post.content.body" />
       <div
         mb-16 mt-12 cursor-pointer text-gray-600 underline-offset-2 class="hover:text-black hover:underline"
         @click="$router.push('/posts')"
