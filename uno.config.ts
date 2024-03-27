@@ -16,23 +16,23 @@ export default defineConfig({
       selectorName: 'markdown-body',
       cssExtend: {
         'a': {
-          'color': `theme('colors.blue.400')`,
-          'text-underline-offset': `3px`,
+          'color': '#60a5fa',
+          'text-underline-offset': '3px',
         },
         'blockquote': {
-          'background-color': `#f0fdff`,
+          'background-color': '#f0fdff',
           'padding': '1px 20px',
-          'color': `#8c8c8c`,
-          'border-left': `4px solid #2196f3`,
+          'color': '#8c8c8c',
+          'border-left': '4px solid #2196f3',
           'margin': '20px 0',
           'font-style': 'normal',
         },
         'h2': {
-          'border-bottom': `1px solid theme('colors.gray.200')`,
+          'border-bottom': '1px solid #e5e7eb',
         },
         'hr': {
           margin: '2em 0',
-          border: `1px solid theme('colors.gray.200')`,
+          border: '1px solid #e5e7eb',
         },
         'td': {
           border: '1px solid #dfe2e5',
@@ -41,11 +41,11 @@ export default defineConfig({
           border: '1px solid #dfe2e5',
         },
         ':not(pre) > code': {
-          'background-color': `theme('colors.rose.50')`,
-          'color': `theme('colors.orange.600')`,
-          'border': `1px solid theme('colors.rose.50')`,
-          'border-radius': `5px`,
-          'padding': `3px`,
+          'background-color': '#fff1f2',
+          'color': '#ea580c',
+          'border': '1px solid #fff1f2',
+          'border-radius': '5px',
+          'padding': '3px',
           'padding-left': '5px',
         },
         ':not(pre) > code::before,:not(pre) > code::after': {
