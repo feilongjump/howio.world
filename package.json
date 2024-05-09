@@ -1,0 +1,35 @@
+{
+  "name": "howio.world",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "type-check": "vue-tsc --build --force"
+  },
+  "dependencies": {
+    "vue": "^3.4.27",
+    "vue-router": "^4.3.2"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.17.0",
+    "@tailwindcss/vite": "^4.0.0-alpha.15",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^20.12.11",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/tsconfig": "^0.5.1",
+    "eslint": "^9.2.0",
+    "tailwindcss": "^4.0.0-alpha.15",
+    "typescript": "^5.4.5",
+    "unplugin-auto-import": "^0.17.5",
+    "unplugin-vue-components": "^0.27.0",
+    "unplugin-vue-router": "^0.8.6",
+    "vite": "^5.2.11",
+    "vue-tsc": "^2.0.16"
+  }
+}
