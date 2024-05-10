@@ -1,1 +1,13 @@
 @import 'tailwindcss';
+
+/* 滚动条样式 */
+.simplebar-scrollbar {
+  transition: height 1s;
+  width: 6px;
+  margin: 0 auto;
+  background-color: #303D53;
+  border-radius: 12px;
+  &:before{
+    display: none;
+  }
+}

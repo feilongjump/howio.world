@@ -1,4 +1,5 @@
 import './styles/main.css'
+import 'simplebar-vue/dist/simplebar.min.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'

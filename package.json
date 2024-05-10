@@ -13,6 +13,7 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
+    "simplebar-vue": "^2.3.4",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2"
   },
