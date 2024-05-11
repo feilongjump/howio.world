@@ -1,6 +1,26 @@
 <script setup lang="ts">
 import Simplebar from 'simplebar-vue'
+import Typed from 'typed.js'
 import Space from './components/Space.vue'
+
+const typewriterElement = ref(null)
+const typed = ref()
+onMounted(() => {
+  typed.value = new Typed(typewriterElement.value, {
+    strings: ['Welcome to HowIO!<br> Let’s begin the adventure!✨'],
+    typeSpeed: 60,
+    onComplete(arrayPos) {
+      // 关闭光标
+      arrayPos.cursor.remove()
+    },
+  })
+})
+onUnmounted(() => {
+  if (typed.value) {
+    typed.value.destroy()
+    typed.value = null
+  }
+})
 </script>
 
 <template>
@@ -22,11 +42,7 @@ import Space from './components/Space.vue'
         </header>
         <main class="flex-auto min-h-96 w-screen pt-20 px-2 sm:px-10 flex justify-center">
           <div class="w-[36rem] h-20 p-4 card">
-            <span class="text-color-gray">
-              Welcome to HowIO!
-              <br>
-              Let’s begin the adventure!
-            </span>
+            <span ref="typewriterElement" class="text-color-gray" />
           </div>
         </main>
         <footer
