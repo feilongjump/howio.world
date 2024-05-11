@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Simplebar from 'simplebar-vue'
+import Space from './components/Space.vue'
 </script>
 
 <template>
@@ -33,12 +34,12 @@ import Simplebar from 'simplebar-vue'
           flex justify-center items-center gap-2 sm:gap-6 flex-col sm:flex-row"
         >
           <a href="https://beian.miit.gov.cn" target="_blank" class="text-xs link">粤ICP备2024196417号</a>
-          <a href="https://howio.world" target="_blank" class="text-sm link">Author: FeiLoong</a>
+          <a href="https://howio.world" target="_blank" class="text-sm link">Site by: FeiLoong</a>
         </footer>
-        <img
-          class="max-w-none w-[200%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-          src="@/assets/hero-glow.svg"
-        >
+        <!-- space -->
+        <div class="h-full w-full absolute top-0 left-0 -z-10">
+          <Space />
+        </div>
       </div>
     </Simplebar>
   </div>
