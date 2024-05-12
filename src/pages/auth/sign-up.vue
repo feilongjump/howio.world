@@ -7,10 +7,159 @@ import {
   ShieldCheckIcon,
   UserIcon,
 } from '@heroicons/vue/24/outline'
+import { type ComponentInternalInstance, proxyRefs } from 'vue'
 import Space from './components/Space.vue'
+
+const user = ref([
+  {
+    icon: EnvelopeOpenIcon,
+    key: 'email',
+    label: 'Enter your email',
+    isShow: false,
+    type: 'email',
+    value: '',
+  },
+  {
+    icon: LockClosedIcon,
+    key: 'password',
+    label: 'Enter password',
+    isShow: false,
+    type: 'password',
+    value: '',
+  },
+  {
+    icon: UserIcon,
+    key: 'username',
+    label: 'Enter your username',
+    isShow: false,
+    type: 'text',
+    value: '',
+  },
+  {
+    icon: ShieldCheckIcon,
+    key: 'verification_code',
+    label: 'Enter email verification code',
+    isShow: false,
+    type: 'text',
+    value: '',
+  },
+])
 
 const typewriterElement = ref(null)
 const typed = ref()
+
+const { proxy } = getCurrentInstance() as ComponentInternalInstance
+
+/**
+ * 下一步操作
+ * @param ref Array<HTMLElement>
+ * @param nextKey number
+ */
+function nextStep(ref: Array<HTMLInputElement>, nextKey: number) {
+  const refInput = ref[0]
+  const prevDom = refInput.previousElementSibling as HTMLElement
+  const nextDom = refInput.nextElementSibling as HTMLElement
+
+  if (ref[0].value !== '') {
+    // icon 更改颜色
+    handleDomClass(prevDom, 'stroke-green-500', 'stroke-pink-500')
+    // 更改当前 input 边框颜色
+    handleDomClass(refInput, 'border-blue-500', 'border-red-500')
+    // 隐藏按钮
+    nextDom.style.display = 'none'
+
+    // 如果当前输入框是最后一个，则进行提交
+    if (nextKey >= user.value.length) {
+      handleSubmit()
+      return
+    }
+
+    // 选中下一个输入框
+    user.value[nextKey].isShow = true
+    // 下一个输入框获取焦点
+    const nextRef = proxy?.$refs[user.value[nextKey].key] as Array<HTMLElement>
+    nextTick(() => {
+      nextRef[0].focus()
+      handleDomClass(nextRef[0], 'border-b', '')
+    })
+
+    return
+  }
+
+  // 值不能为空，后续需要进行用户信息提醒
+  handleDomClass(refInput, 'border-red-500', '')
+}
+/**
+ * 提交表单
+ */
+function handleSubmit() {
+  const formData: { [Key: string]: string } = {}
+  user.value.forEach((item) => {
+    formData[item.key] = item.value
+  })
+  console.info(formData)
+}
+/**
+ * 输入框获取焦点
+ * @param ref Array<HTMLElement>
+ */
+function handleFocus(ref: Array<HTMLInputElement>) {
+  const refInput = ref[0]
+  const nextDom = refInput.nextElementSibling as HTMLElement
+  const prevDom = refInput.previousElementSibling as HTMLElement
+
+  // icon 更改颜色
+  handleDomClass(prevDom, 'stroke-pink-500', 'stroke-green-500')
+  // 更改输入框样式
+  handleDomClass(refInput, 'border-blue-500', 'border-red-500')
+  handleDomClass(refInput, 'border-b', '')
+  // 显示按钮
+  nextDom.style.display = 'block'
+}
+/**
+ * 输入框失去焦点
+ * @param ref Array<HTMLElement>
+ */
+function handleBlur(ref: Array<HTMLInputElement>) {
+  const refInput = ref[0]
+  const prevDom = refInput.previousElementSibling as HTMLElement
+  const nextDom = refInput.nextElementSibling as HTMLElement
+
+  // 需要根据当前输入框是否有值进行更改 icon 颜色
+  if (refInput.value !== '') {
+    // 存在值
+    // 隐藏按钮
+    // TODO: 由于输入框失去焦点时，会隐藏按钮，导致按钮的点击事件失效
+    setTimeout(() => {
+      nextDom.style.display = 'none'
+    }, 300)
+    // icon 更改颜色
+    handleDomClass(prevDom, 'stroke-green-500', 'stroke-pink-500')
+    // 更改输入框样式
+    handleDomClass(refInput, '', 'border-b')
+  }
+  else {
+    // 不存在值
+    // icon 更改颜色
+    handleDomClass(prevDom, 'stroke-pink-500', 'stroke-green-500')
+    // 更改输入框样式
+    handleDomClass(refInput, 'border-red-500', 'border-blue-500')
+    handleDomClass(refInput, 'border-b', '')
+  }
+}
+/**
+ * 操作 dom 元素 class
+ * @param dom HTMLElement
+ * @param addClass string
+ * @param removeClass string
+ */
+function handleDomClass(dom: HTMLElement, addClass?: string, removeClass?: string) {
+  if (addClass)
+    dom.classList.add(addClass)
+  if (removeClass)
+    dom.classList.remove(removeClass)
+}
+
 onMounted(() => {
   typed.value = new Typed(typewriterElement.value, {
     strings: ['Welcome to HowIO!<br> Let’s begin the adventure!✨'],
@@ -18,6 +167,14 @@ onMounted(() => {
     onComplete(arrayPos) {
       // 关闭光标
       arrayPos.cursor.remove()
+      // 展示第一个输入框
+      user.value[0].isShow = true
+      // 选中第一个输入框
+      const ref = proxy?.$refs[user.value[0].key] as Array<HTMLElement>
+      nextTick(() => {
+        ref[0].focus()
+        handleDomClass(ref[0], 'border-b', '')
+      })
     },
   })
 })
@@ -51,36 +208,20 @@ onUnmounted(() => {
             <span ref="typewriterElement" class="text-color-gray" />
             <!-- form -->
             <div class="w-full mt-8 flex flex-col gap-y-8">
-              <div class="auth-form-input">
-                <label for="email">Enter your email</label>
+              <div v-for="(item, idx) in user" v-show="item.isShow" :key="idx" class="auth-form-input">
+                <label :for="item.key">{{ item.label }}</label>
                 <div class="input-box">
-                  <EnvelopeOpenIcon class="w-4 h-4 stroke-pink-500 stroke-2" />
-                  <input id="email" type="text">
-                  <button>Continue</button>
-                </div>
-              </div>
-              <div class="auth-form-input">
-                <label for="password">Enter password</label>
-                <div class="input-box">
-                  <LockClosedIcon class="w-4 h-4 stroke-pink-500 stroke-2" />
-                  <input id="password" type="text">
-                  <button>Continue</button>
-                </div>
-              </div>
-              <div class="auth-form-input">
-                <label for="username">Enter your username</label>
-                <div class="input-box">
-                  <UserIcon class="w-4 h-4 stroke-pink-500 stroke-2" />
-                  <input id="username" type="text">
-                  <button>Continue</button>
-                </div>
-              </div>
-              <div class="auth-form-input">
-                <label for="code">Enter email verification code</label>
-                <div class="input-box">
-                  <ShieldCheckIcon class="w-4 h-4 stroke-pink-500 stroke-2" />
-                  <input id="code" type="text">
-                  <button>Continue</button>
+                  <component :is="item.icon" class="w-4 h-4 stroke-pink-500 stroke-2" />
+                  <input
+                    :ref="item.key" v-model="item.value" :type="item.type"
+                    class="border-0 border-blue-500"
+                    @keydown.enter="nextStep($refs[item.key] as Array<HTMLInputElement>, idx + 1)"
+                    @focus="handleFocus($refs[item.key] as Array<HTMLInputElement>)"
+                    @blur="handleBlur($refs[item.key] as Array<HTMLInputElement>)"
+                  >
+                  <button @click="nextStep($refs[item.key] as Array<HTMLInputElement>, idx + 1)">
+                    Continue
+                  </button>
                 </div>
               </div>
             </div>
@@ -127,18 +268,18 @@ onUnmounted(() => {
 
   & input{
     height: 2rem;
-    border: 0;
-    border-bottom: 1px solid var(--color-blue-500);
     padding-left: 0.25rem;
     outline: none;
     flex: 1 1 auto;
   }
   & button{
+    display: none;
     height: 2rem;
     color: var(--color-gray-400);
     border: 1px solid var(--color-gray-400);
     border-radius: 0.25rem;
     cursor: pointer;
+    outline: none;
     padding: 0.25rem 0.5rem;
 
     &:hover {
