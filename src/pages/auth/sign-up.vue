@@ -101,7 +101,7 @@ function handleSubmit() {
 }
 /**
  * 输入框获取焦点
- * @param ref Array<HTMLElement>
+ * @param ref Array<HTMLInputElement>
  */
 function handleFocus(ref: Array<HTMLInputElement>) {
   const refInput = ref[0]
@@ -205,7 +205,9 @@ onUnmounted(() => {
         </header>
         <main class="flex-auto min-h-96 w-screen pt-20 px-2 sm:px-10 flex flex-col items-center">
           <div class="max-w-[36rem] w-full h-fit px-2 sm:px-6 pt-6 pb-8 card flex flex-col">
-            <span ref="typewriterElement" class="text-color-gray" />
+            <div class="text-color-gray">
+              <span ref="typewriterElement" />
+            </div>
             <!-- form -->
             <div class="w-full mt-8 flex flex-col gap-y-8">
               <div v-for="(item, idx) in user" v-show="item.isShow" :key="idx" class="auth-form-input">
