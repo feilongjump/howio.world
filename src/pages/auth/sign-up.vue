@@ -57,16 +57,10 @@ const { proxy } = getCurrentInstance() as ComponentInternalInstance
  */
 function nextStep(ref: Array<HTMLInputElement>, nextKey: number) {
   const refInput = ref[0]
-  const prevDom = refInput.previousElementSibling as HTMLElement
-  const nextDom = refInput.nextElementSibling as HTMLElement
 
   if (ref[0].value !== '') {
-    // icon 更改颜色
-    handleDomClass(prevDom, 'stroke-green-500', 'stroke-pink-500')
-    // 更改当前 input 边框颜色
-    handleDomClass(refInput, 'border-blue-500', 'border-red-500')
-    // 隐藏按钮
-    nextDom.style.display = 'none'
+    // 当前输入框失去焦点
+    handleBlur(ref)
 
     // 如果当前输入框是最后一个，则进行提交
     if (nextKey >= user.value.length) {
@@ -77,11 +71,8 @@ function nextStep(ref: Array<HTMLInputElement>, nextKey: number) {
     // 选中下一个输入框
     user.value[nextKey].isShow = true
     // 下一个输入框获取焦点
-    const nextRef = proxy?.$refs[user.value[nextKey].key] as Array<HTMLElement>
-    nextTick(() => {
-      nextRef[0].focus()
-      handleDomClass(nextRef[0], 'border-b', '')
-    })
+    const nextRef = proxy?.$refs[user.value[nextKey].key] as Array<HTMLInputElement>
+    handleFocus(nextRef)
 
     return
   }
@@ -108,13 +99,17 @@ function handleFocus(ref: Array<HTMLInputElement>) {
   const nextDom = refInput.nextElementSibling as HTMLElement
   const prevDom = refInput.previousElementSibling as HTMLElement
 
-  // icon 更改颜色
-  handleDomClass(prevDom, 'stroke-pink-500', 'stroke-green-500')
-  // 更改输入框样式
-  handleDomClass(refInput, 'border-blue-500', 'border-red-500')
-  handleDomClass(refInput, 'border-b', '')
-  // 显示按钮
-  nextDom.style.display = 'block'
+  nextTick(() => {
+    // icon 更改颜色
+    handleDomClass(prevDom, 'stroke-pink-500', 'stroke-green-500')
+    // 更改输入框样式
+    handleDomClass(refInput, 'border-blue-500', 'border-red-500')
+    handleDomClass(refInput, 'border-b', '')
+    // 选中输入框
+    refInput.focus()
+    // 显示按钮
+    nextDom.style.display = 'block'
+  })
 }
 /**
  * 输入框失去焦点
@@ -170,11 +165,9 @@ onMounted(() => {
       // 展示第一个输入框
       user.value[0].isShow = true
       // 选中第一个输入框
-      const ref = proxy?.$refs[user.value[0].key] as Array<HTMLElement>
-      nextTick(() => {
-        ref[0].focus()
-        handleDomClass(ref[0], 'border-b', '')
-      })
+      // todo: 操作选中时，会触发输入框的获取焦点事件，导致执行两次
+      const ref = proxy?.$refs[user.value[0].key] as Array<HTMLInputElement>
+      handleFocus(ref)
     },
   })
 })
