@@ -29,6 +29,7 @@ export default defineConfig({
     AutoImport({
       imports: [
         'vue',
+        '@vueuse/core',
         VueRouterAutoImports,
         {
           // add any other imports you were relying on
