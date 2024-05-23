@@ -6,8 +6,9 @@ import {
   LockClosedIcon,
   ShieldCheckIcon,
   UserIcon,
+  XMarkIcon,
 } from '@heroicons/vue/24/outline'
-import { type ComponentInternalInstance, proxyRefs } from 'vue'
+import type { ComponentInternalInstance } from 'vue'
 import Space from './components/Space.vue'
 
 const user = ref([
@@ -16,6 +17,7 @@ const user = ref([
     key: 'email',
     label: 'Enter your email',
     isShow: false,
+    isFocus: false,
     type: 'email',
     value: '',
   },
@@ -24,6 +26,7 @@ const user = ref([
     key: 'password',
     label: 'Enter password',
     isShow: false,
+    isFocus: false,
     type: 'password',
     value: '',
   },
@@ -32,6 +35,7 @@ const user = ref([
     key: 'username',
     label: 'Enter your username',
     isShow: false,
+    isFocus: false,
     type: 'text',
     value: '',
   },
@@ -40,6 +44,7 @@ const user = ref([
     key: 'verification_code',
     label: 'Enter email verification code',
     isShow: false,
+    isFocus: false,
     type: 'text',
     value: '',
   },
@@ -47,6 +52,7 @@ const user = ref([
 
 const typewriterElement = ref(null)
 const typed = ref()
+let clickOutSideFunc: Function
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance
 
@@ -58,9 +64,9 @@ const { proxy } = getCurrentInstance() as ComponentInternalInstance
 function nextStep(ref: Array<HTMLInputElement>, nextKey: number) {
   const refInput = ref[0]
 
-  if (ref[0].value !== '') {
+  if (refInput.value !== '') {
     // 当前输入框失去焦点
-    handleBlur(ref)
+    handleBlur()
 
     // 如果当前输入框是最后一个，则进行提交
     if (nextKey >= user.value.length) {
@@ -73,12 +79,10 @@ function nextStep(ref: Array<HTMLInputElement>, nextKey: number) {
     // 下一个输入框获取焦点
     const nextRef = proxy?.$refs[user.value[nextKey].key] as Array<HTMLInputElement>
     handleFocus(nextRef)
-
     return
   }
 
-  // 值不能为空，后续需要进行用户信息提醒
-  handleDomClass(refInput, 'border-red-500', '')
+  alert('请填写该字段。')
 }
 /**
  * 提交表单
@@ -96,63 +100,29 @@ function handleSubmit() {
  */
 function handleFocus(ref: Array<HTMLInputElement>) {
   const refInput = ref[0]
-  const nextDom = refInput.nextElementSibling as HTMLElement
-  const prevDom = refInput.previousElementSibling as HTMLElement
+  const buttonDom = refInput.nextElementSibling as HTMLButtonElement
+
+  user.value.forEach(item => item.isFocus = item.key === refInput.id)
 
   nextTick(() => {
-    // icon 更改颜色
-    handleDomClass(prevDom, 'stroke-pink-500', 'stroke-green-500')
-    // 更改输入框样式
-    handleDomClass(refInput, 'border-blue-500', 'border-red-500')
-    handleDomClass(refInput, 'border-b', '')
     // 选中输入框
     refInput.focus()
-    // 显示按钮
-    nextDom.style.display = 'block'
+  })
+
+  // 注册输入框失焦后的事件
+  clickOutSideFunc = onClickOutside(refInput, () => {
+    handleBlur()
+  }, {
+    ignore: [buttonDom],
   })
 }
 /**
  * 输入框失去焦点
- * @param ref Array<HTMLElement>
  */
-function handleBlur(ref: Array<HTMLInputElement>) {
-  const refInput = ref[0]
-  const prevDom = refInput.previousElementSibling as HTMLElement
-  const nextDom = refInput.nextElementSibling as HTMLElement
+function handleBlur() {
+  user.value.forEach(item => item.isFocus = false)
 
-  // 需要根据当前输入框是否有值进行更改 icon 颜色
-  if (refInput.value !== '') {
-    // 存在值
-    // 隐藏按钮
-    // TODO: 由于输入框失去焦点时，会隐藏按钮，导致按钮的点击事件失效
-    setTimeout(() => {
-      nextDom.style.display = 'none'
-    }, 300)
-    // icon 更改颜色
-    handleDomClass(prevDom, 'stroke-green-500', 'stroke-pink-500')
-    // 更改输入框样式
-    handleDomClass(refInput, '', 'border-b')
-  }
-  else {
-    // 不存在值
-    // icon 更改颜色
-    handleDomClass(prevDom, 'stroke-pink-500', 'stroke-green-500')
-    // 更改输入框样式
-    handleDomClass(refInput, 'border-red-500', 'border-blue-500')
-    handleDomClass(refInput, 'border-b', '')
-  }
-}
-/**
- * 操作 dom 元素 class
- * @param dom HTMLElement
- * @param addClass string
- * @param removeClass string
- */
-function handleDomClass(dom: HTMLElement, addClass?: string, removeClass?: string) {
-  if (addClass)
-    dom.classList.add(addClass)
-  if (removeClass)
-    dom.classList.remove(removeClass)
+  clickOutSideFunc()
 }
 
 onMounted(() => {
@@ -165,7 +135,6 @@ onMounted(() => {
       // 展示第一个输入框
       user.value[0].isShow = true
       // 选中第一个输入框
-      // todo: 操作选中时，会触发输入框的获取焦点事件，导致执行两次
       const ref = proxy?.$refs[user.value[0].key] as Array<HTMLInputElement>
       handleFocus(ref)
     },
@@ -206,15 +175,22 @@ onUnmounted(() => {
               <div v-for="(item, idx) in user" v-show="item.isShow" :key="idx" class="auth-form-input">
                 <label :for="item.key">{{ item.label }}</label>
                 <div class="input-box">
-                  <component :is="item.icon" class="w-4 h-4 stroke-pink-500 stroke-2" />
+                  <component
+                    :is="!item.isFocus && !item.value ? XMarkIcon : item.icon"
+                    class="w-4 h-4 stroke-2 stroke-green-500"
+                    :class="[!item.isFocus && !item.value && 'stroke-4 stroke-red-500']"
+                  />
                   <input
-                    :ref="item.key" v-model="item.value" :type="item.type"
-                    class="border-0 border-blue-500"
+                    :id="item.key" :ref="item.key" v-model="item.value" :type="item.type"
+                    class="border-0"
+                    :class="[item.isFocus ? 'border-b border-blue-500' : 'border-b-0']"
                     @keydown.enter="nextStep($refs[item.key] as Array<HTMLInputElement>, idx + 1)"
-                    @focus="handleFocus($refs[item.key] as Array<HTMLInputElement>)"
-                    @blur="handleBlur($refs[item.key] as Array<HTMLInputElement>)"
+                    @click="handleFocus($refs[item.key] as Array<HTMLInputElement>)"
                   >
-                  <button @click="nextStep($refs[item.key] as Array<HTMLInputElement>, idx + 1)">
+                  <button
+                    :class="[item.isFocus ? 'block' : 'hidden']"
+                    @click="nextStep($refs[item.key] as Array<HTMLInputElement>, idx + 1)"
+                  >
                     Continue
                   </button>
                 </div>
@@ -268,7 +244,6 @@ onUnmounted(() => {
     flex: 1 1 auto;
   }
   & button{
-    display: none;
     height: 2rem;
     color: var(--color-gray-400);
     border: 1px solid var(--color-gray-400);
