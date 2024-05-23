@@ -9,6 +9,7 @@ import {
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
 import type { ComponentInternalInstance } from 'vue'
+import autolog from 'autolog.js'
 import Space from './components/Space.vue'
 
 const user = ref([
@@ -52,6 +53,7 @@ const user = ref([
 
 const typewriterElement = ref(null)
 const typed = ref()
+const typedIsComplete = ref(false)
 let clickOutSideFunc: Function
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance
@@ -82,7 +84,7 @@ function nextStep(ref: Array<HTMLInputElement>, nextKey: number) {
     return
   }
 
-  alert('请填写该字段。')
+  autolog.log('请填写该字段。', 'error')
 }
 /**
  * 提交表单
@@ -91,8 +93,10 @@ function handleSubmit() {
   const formData: { [Key: string]: string } = {}
   user.value.forEach((item) => {
     formData[item.key] = item.value
+
+    // todo: delete
+    autolog.log(`${item.key}: ${item.value}`, 'success')
   })
-  console.info(formData)
 }
 /**
  * 输入框获取焦点
@@ -130,6 +134,8 @@ onMounted(() => {
     strings: ['Welcome to HowIO!<br> Let’s begin the adventure!✨'],
     typeSpeed: 60,
     onComplete(arrayPos) {
+      // 打字机已经完成
+      typedIsComplete.value = true
       // 关闭光标
       arrayPos.cursor.remove()
       // 展示第一个输入框
@@ -171,7 +177,7 @@ onUnmounted(() => {
               <span ref="typewriterElement" />
             </div>
             <!-- form -->
-            <div class="w-full mt-8 flex flex-col gap-y-8">
+            <div class="w-full flex flex-col gap-y-8" :class="[typedIsComplete && 'mt-8']">
               <div v-for="(item, idx) in user" v-show="item.isShow" :key="idx" class="auth-form-input">
                 <label :for="item.key">{{ item.label }}</label>
                 <div class="input-box">
