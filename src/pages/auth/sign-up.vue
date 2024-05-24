@@ -11,6 +11,7 @@ import {
 import type { ComponentInternalInstance } from 'vue'
 import autolog from 'autolog.js'
 import Space from './components/Space.vue'
+import useRequest from '@/utils/request'
 
 const user = ref([
   {
@@ -33,7 +34,7 @@ const user = ref([
   },
   {
     icon: UserIcon,
-    key: 'username',
+    key: 'name',
     label: 'Enter your username',
     isShow: false,
     isFocus: false,
@@ -63,10 +64,17 @@ const { proxy } = getCurrentInstance() as ComponentInternalInstance
  * @param ref Array<HTMLElement>
  * @param nextKey number
  */
-function nextStep(ref: Array<HTMLInputElement>, nextKey: number) {
+async function nextStep(ref: Array<HTMLInputElement>, nextKey: number) {
   const refInput = ref[0]
 
   if (refInput.value !== '') {
+    // 发送邮箱验证码
+    if (refInput.id === 'email') {
+      const bool = await sendEmailVerificationCode(refInput.value)
+      if (bool === false)
+        return
+    }
+
     // 当前输入框失去焦点
     handleBlur()
 
@@ -89,14 +97,37 @@ function nextStep(ref: Array<HTMLInputElement>, nextKey: number) {
 /**
  * 提交表单
  */
-function handleSubmit() {
+async function handleSubmit() {
   const formData: { [Key: string]: string } = {}
   user.value.forEach((item) => {
     formData[item.key] = item.value
-
-    // todo: delete
-    autolog.log(`${item.key}: ${item.value}`, 'success')
   })
+
+  const { data } = await useRequest('auth/sign-up').post(formData).json()
+  useStorage('token', data.value.access_token)
+
+  const { data: me } = await useRequest('me').get().json()
+  useStorage('me', me)
+
+  autolog.log('你好啊！今天天气晴朗🌞', 'success')
+}
+/**
+ * 发送邮箱验证码
+ *
+ * @param email 邮箱
+ */
+async function sendEmailVerificationCode(email: string) {
+  if (email === '') {
+    autolog.log('请填写邮箱。', 'error')
+    return false
+  }
+
+  const { error } = await useRequest('user/email/verification-code').post({ email }).json()
+  if (error.value !== null)
+    return false
+
+  autolog.log('邮箱验证码发送成功！', 'success')
+  return true
 }
 /**
  * 输入框获取焦点
@@ -132,7 +163,7 @@ function handleBlur() {
 onMounted(() => {
   typed.value = new Typed(typewriterElement.value, {
     strings: ['Welcome to HowIO!<br> Let’s begin the adventure!✨'],
-    typeSpeed: 60,
+    // typeSpeed: 60,
     onComplete(arrayPos) {
       // 打字机已经完成
       typedIsComplete.value = true
