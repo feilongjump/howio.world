@@ -2,9 +2,7 @@
 import Simplebar from 'simplebar-vue'
 import Typed from 'typed.js'
 import {
-  EnvelopeOpenIcon,
   LockClosedIcon,
-  ShieldCheckIcon,
   UserIcon,
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
@@ -15,12 +13,12 @@ import useRequest from '@/utils/request'
 
 const user = ref([
   {
-    icon: EnvelopeOpenIcon,
-    key: 'email',
-    label: 'Enter your email',
+    icon: UserIcon,
+    key: 'username',
+    label: 'Enter your email or username',
     isShow: false,
     isFocus: false,
-    type: 'email',
+    type: 'text',
     value: '',
   },
   {
@@ -30,24 +28,6 @@ const user = ref([
     isShow: false,
     isFocus: false,
     type: 'password',
-    value: '',
-  },
-  {
-    icon: UserIcon,
-    key: 'name',
-    label: 'Enter your username',
-    isShow: false,
-    isFocus: false,
-    type: 'text',
-    value: '',
-  },
-  {
-    icon: ShieldCheckIcon,
-    key: 'verification_code',
-    label: 'Enter email verification code',
-    isShow: false,
-    isFocus: false,
-    type: 'text',
     value: '',
   },
 ])
@@ -68,13 +48,6 @@ async function nextStep(ref: Array<HTMLInputElement>, nextKey: number) {
   const refInput = ref[0]
 
   if (refInput.value !== '') {
-    // 发送邮箱验证码
-    if (refInput.id === 'email') {
-      const bool = await sendEmailVerificationCode(refInput.value)
-      if (bool === false)
-        return
-    }
-
     // 当前输入框失去焦点
     handleBlur()
 
@@ -103,31 +76,13 @@ async function handleSubmit() {
     formData[item.key] = item.value
   })
 
-  const { data } = await useRequest('auth/sign-up').post(formData).json()
+  const { data } = await useRequest('auth/sign-in').post(formData).json()
   useStorage('token', data.value.access_token)
 
   const { data: me } = await useRequest('me').get().json()
   useStorage('me', me)
 
-  autolog.log('你好啊！今天天气晴朗🌞', 'success')
-}
-/**
- * 发送邮箱验证码
- *
- * @param email 邮箱
- */
-async function sendEmailVerificationCode(email: string) {
-  if (email === '') {
-    autolog.log('请填写邮箱。', 'error')
-    return false
-  }
-
-  const { error } = await useRequest('user/email/verification-code').post({ email }).json()
-  if (error.value !== null)
-    return false
-
-  autolog.log('邮箱验证码发送成功！', 'success')
-  return true
+  autolog.log('开始发现前方的神秘与奇迹吧！🌞', 'success')
 }
 /**
  * 输入框获取焦点
@@ -162,8 +117,13 @@ function handleBlur() {
 
 onMounted(() => {
   typed.value = new Typed(typewriterElement.value, {
-    strings: ['Welcome to HowIO!<br> Let’s begin the adventure!✨'],
-    // typeSpeed: 60,
+    strings: [
+      'Welcome back HowIO!<br> '
+      + 'There was a young man with a thirst for adventure,<br>'
+      + 'He embarked on an uncharted path,<br>'
+      + 'Looking forward to discovering the mysteries and wonders that lie ahead!✨',
+    ],
+    typeSpeed: 60,
     onComplete(arrayPos) {
       // 打字机已经完成
       typedIsComplete.value = true
@@ -195,9 +155,9 @@ onUnmounted(() => {
               <img class="w-8 h-8" src="@/assets/logo.svg" alt="">
             </RouterLink>
             <div class="text-color-gray text-sm">
-              <span>已经有账号了？</span>
-              <RouterLink class="text-white text-base font-semibold" :to="{ name: 'sign-in' }">
-                Sign in →
+              <span>还没有账号？</span>
+              <RouterLink class="text-white text-base font-semibold" :to="{ name: 'sign-up' }">
+                Sign up →
               </RouterLink>
             </div>
           </div>
@@ -235,7 +195,7 @@ onUnmounted(() => {
             </div>
           </div>
           <div class="mt-8 flex flex-col items-center text-color-gray text-xs">
-            <span>你想使用 WeChat 或者 GitHub 进行注册登录吗？</span>
+            <span>你想使用 WeChat 或者 GitHub 进行登录吗？</span>
             <span>那再等等吧，因为我还没有开发。😂</span>
           </div>
         </main>
@@ -257,7 +217,7 @@ onUnmounted(() => {
 
 <route lang="json">
 {
-  "name": "sign-up"
+  "name": "sign-in"
 }
 </route>
 
