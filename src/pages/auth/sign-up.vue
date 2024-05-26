@@ -163,7 +163,7 @@ function handleBlur() {
 onMounted(() => {
   typed.value = new Typed(typewriterElement.value, {
     strings: ['Welcome to HowIO!<br> Let’s begin the adventure!✨'],
-    // typeSpeed: 60,
+    typeSpeed: 60,
     onComplete(arrayPos) {
       // 打字机已经完成
       typedIsComplete.value = true
