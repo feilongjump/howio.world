@@ -36,6 +36,7 @@ const typewriterElement = ref(null)
 const typed = ref()
 const typedIsComplete = ref(false)
 let clickOutSideFunc: Function
+const router = useRouter()
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance
 
@@ -83,6 +84,7 @@ async function handleSubmit() {
   useStorage('me', me)
 
   autolog.log('开始发现前方的神秘与奇迹吧！🌞', 'success')
+  router.push({ name: 'backstage.index' })
 }
 /**
  * 输入框获取焦点
@@ -123,7 +125,7 @@ onMounted(() => {
       + 'He embarked on an uncharted path,<br>'
       + 'Looking forward to discovering the mysteries and wonders that lie ahead!✨',
     ],
-    typeSpeed: 60,
+    typeSpeed: 30,
     onComplete(arrayPos) {
       // 打字机已经完成
       typedIsComplete.value = true
