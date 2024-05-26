@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+import Layouts from 'vite-plugin-vue-layouts'
 import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
 import VueRouter from 'unplugin-vue-router/vite'
@@ -23,9 +24,17 @@ export default defineConfig({
       ],
       routesFolder: [
         'src/pages',
+        {
+          src: 'src/backstage',
+          path: 'backstage/',
+        },
       ],
       dts: 'types/typed-router.d.ts',
     }),
+
+    // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
+    Layouts(),
+
     AutoImport({
       imports: [
         'vue',
