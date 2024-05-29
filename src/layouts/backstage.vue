@@ -6,7 +6,7 @@
     <div class="w-80 h-dvh">
       <Sidebar />
     </div>
-    <main class="flex-1 bg-pink-300">
+    <main class="flex-1">
       <RouterView />
     </main>
   </div>

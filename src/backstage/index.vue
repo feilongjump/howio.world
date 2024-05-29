@@ -11,8 +11,9 @@
 {
   "name": "backstage.index",
   "meta": {
+    "icon": "BuildingStorefront",
     "layout": "backstage",
-    "title": "后台首页",
+    "title": "Index",
     "order": 0
   }
 }
