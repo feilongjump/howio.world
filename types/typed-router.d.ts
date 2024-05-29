@@ -21,5 +21,6 @@ declare module 'vue-router/auto-routes' {
     'index': RouteRecordInfo<'index', '/', Record<never, never>, Record<never, never>>,
     'sign-in': RouteRecordInfo<'sign-in', '/auth/sign-in', Record<never, never>, Record<never, never>>,
     'sign-up': RouteRecordInfo<'sign-up', '/auth/sign-up', Record<never, never>, Record<never, never>>,
+    'backstage.index': RouteRecordInfo<'backstage.index', '/backstage', Record<never, never>, Record<never, never>>,
   }
 }

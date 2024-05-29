@@ -10,7 +10,8 @@
       "@/*": ["./src/*"]
     },
     "types": [
-      "unplugin-vue-router/client"
+      "unplugin-vue-router/client",
+      "vite-plugin-vue-layouts/client"
     ]
   },
   "include": [
