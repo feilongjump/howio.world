@@ -35,6 +35,12 @@ body {
   }
 }
 
+.bg-pale-color {
+  background-color: var(--dark-bg-pale-color);
+}
 .text-color-gray {
   color: var(--dark-color-gray);
+}
+.stroke-color-gray {
+  stroke: var(--dark-color-gray);
 }
