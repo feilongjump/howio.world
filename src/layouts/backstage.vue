@@ -4,7 +4,7 @@ import Simplebar from 'simplebar-vue'
 
 <template>
   <div class="w-dvw min-h-dvh flex">
-    <div class="w-[--backstage-sidebar-w] hidden sm:block h-dvh fixed">
+    <div class="w-[--backstage-sidebar-w] hidden sm:block h-dvh fixed z-10">
       <BackstageSidebar />
     </div>
     <main class="w-full max-h-dvh overflow-hidden">
