@@ -5,25 +5,22 @@ import Trends from './components/Trends.vue'
 <template>
   <div class="w-full h-full grid gap-x-6 grid-cols-12">
     <div class="col-span-8 grid gap-y-6">
+      <!-- Trends -->
       <div class="w-full h-96">
-        <div class="h-8 flex items-center">
-          <span class="text-xl font-bold text-white">Trends</span>
+        <div class="flex items-center">
+          <span class="text-3xl font-bold text-white">Trends</span>
         </div>
         <div class="w-full h-[22rem]">
           <Trends />
         </div>
       </div>
+      <!-- second -->
       <div class="bg-gray-800 w-full h-96">
         second
       </div>
     </div>
-    <div class="col-span-4 grid gap-y-6">
-      <div class="bg-gray-800 w-full h-96">
-        first
-      </div>
-      <div class="bg-gray-800 w-full h-96">
-        second
-      </div>
+    <div class="col-span-4 row-span-2 bg-gray-800">
+      First
     </div>
   </div>
 </template>

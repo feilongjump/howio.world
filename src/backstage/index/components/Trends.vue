@@ -38,7 +38,7 @@ onMounted(() => {
 
   const trendsOptions: EChartsOption = {
     grid: {
-      top: '18%',
+      top: '10%',
       left: '8%',
       right: 5,
       bottom: '10%',
