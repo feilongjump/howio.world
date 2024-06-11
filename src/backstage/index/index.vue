@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Trends from './components/Trends.vue'
+import Calender from './components/Calendar.vue'
 </script>
 
 <template>
@@ -19,8 +20,8 @@ import Trends from './components/Trends.vue'
         second
       </div>
     </div>
-    <div class="col-span-4 row-span-2 bg-gray-800">
-      First
+    <div class="col-span-4 row-span-2">
+      <Calender />
     </div>
   </div>
 </template>
