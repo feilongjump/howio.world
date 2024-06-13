@@ -22,5 +22,9 @@ declare module 'vue-router/auto-routes' {
     'sign-in': RouteRecordInfo<'sign-in', '/auth/sign-in', Record<never, never>, Record<never, never>>,
     'sign-up': RouteRecordInfo<'sign-up', '/auth/sign-up', Record<never, never>, Record<never, never>>,
     'backstage.index': RouteRecordInfo<'backstage.index', '/backstage', Record<never, never>, Record<never, never>>,
+    'backstage.ledgers': RouteRecordInfo<'backstage.ledgers', '/backstage/ledger', Record<never, never>, Record<never, never>>,
+    'backstage.posts': RouteRecordInfo<'backstage.posts', '/backstage/posts', Record<never, never>, Record<never, never>>,
+    'backstage.tracks': RouteRecordInfo<'backstage.tracks', '/backstage/track', Record<never, never>, Record<never, never>>,
+    'backstage.users': RouteRecordInfo<'backstage.users', '/backstage/users', Record<never, never>, Record<never, never>>,
   }
 }
