@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // 暂时重定向至注册页
-useRouter().push('/auth/sign-up')
+useRouter().push('/backstage')
 </script>
 
 <template>
