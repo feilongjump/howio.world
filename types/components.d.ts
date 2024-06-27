@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     BackstageHeader: typeof import('./../src/components/BackstageHeader.vue')['default']
     BackstageSidebar: typeof import('./../src/components/BackstageSidebar.vue')['default']
+    MarkdownEditor: typeof import('./../src/components/Markdown/MarkdownEditor.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Sidebar: typeof import('./../src/components/Sidebar.vue')['default']
