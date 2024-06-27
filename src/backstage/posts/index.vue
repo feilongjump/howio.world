@@ -7,6 +7,7 @@ import {
   TrashIcon,
 } from '@heroicons/vue/24/outline'
 import Simplebar from 'simplebar-vue'
+import Form from './components/Form.vue'
 
 const imgs = [
   'https://cdn.pixabay.com/photo/2023/10/18/08/38/milkshake-8323288_640.jpg',
@@ -18,7 +19,7 @@ const imgs = [
 <template>
   <div class="posts-container">
     <!-- list -->
-    <div class="w-[28rem] pr-1 border-r">
+    <div class="w-[28rem] pr-1">
       <Simplebar class="h-full">
         <div class="h-12 mr-4 px-2 border-b flex justify-between items-center">
           <div class="cursor-pointer">
@@ -66,8 +67,8 @@ const imgs = [
       </Simplebar>
     </div>
     <!-- form -->
-    <div class="flex-1 bg-gray-900">
-      right
+    <div class="flex-1 h-full">
+      <Form />
     </div>
   </div>
 </template>
