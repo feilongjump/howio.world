@@ -1,0 +1,13 @@
+{
+  "editor.formatOnSave": true,
+  "[svelte]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.configPath": ".prettierrc",
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}
