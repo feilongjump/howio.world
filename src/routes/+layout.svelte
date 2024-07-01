@@ -17,3 +17,12 @@
     <slot />
   </main>
 </div>
+
+<style>
+  main {
+    margin-top: var(--header-h);
+    min-height: calc(100dvh - var(--header-h));
+    background-color: var(--main-bg-color);
+    @apply rounded-t-xl md:rounded-t-3xl;
+  }
+</style>
