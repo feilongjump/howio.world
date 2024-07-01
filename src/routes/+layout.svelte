@@ -1,5 +1,6 @@
 <script>
   import '../app.css'
+  import Header from './Header.svelte'
   import { onMount } from 'svelte'
   import { themeChange } from 'theme-change'
 
@@ -10,6 +11,8 @@
 </script>
 
 <div id="app">
+  <Header />
+
   <main>
     <slot />
   </main>
