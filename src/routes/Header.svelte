@@ -29,6 +29,6 @@
 <style>
   header {
     height: var(--header-h);
-    @apply w-dvw px-2 md:px-8 flex items-center justify-between;
+    @apply w-dvw px-2 md:px-8 fixed top-0 flex items-center justify-between;
   }
 </style>
